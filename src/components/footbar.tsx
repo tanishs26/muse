@@ -36,7 +36,7 @@ const Footbar = () => {
         {
             routes.map((item)=>{
                 return(
-                    <FootbarItems {...item}/>
+                    <FootbarItems key={item.href} {...item}/>
                 )
             })
         }

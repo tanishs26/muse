@@ -22,9 +22,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       className={twMerge(
         `
           relative
-          flex items-center justify-between gap-x-3 px-4 py-2
+          flex items-center justify-between gap-x-3 text-md px-4 py-3
           text-md font-medium cursor-pointer
-          transition hover:text-orange-600
+          transition hover:text-white
           ${active ? "text-orange-600" : "text-neutral-400"}
         `
       )}
@@ -39,8 +39,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
           "
         />
       )}
-      <Icon size={24} className="relative z-10" />
-      <p className="truncate w-full relative z-10">{label}</p>
+      <Icon size={24} className="relative " />
+      <p className="truncate w-full relative ">{label}</p>
     </Link>
   );
 };
