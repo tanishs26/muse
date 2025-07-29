@@ -8,17 +8,25 @@ import {
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeMinimal, ThemeSupa } from "@supabase/auth-ui-shared";
+import { useEffect } from "react";
 
 const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+
   const { session } = useSessionContext();
-  const {onClose,isOpen}=useAuthModal();
-  const onChange=(open:boolean)=>{
-    if(!isOpen){
-        onClose();
+  const { onClose, isOpen } = useAuthModal();
+  const onChange = (open: boolean) => {
+    if (isOpen) {
+      onClose();
     }
-  }
+  };
+  useEffect(() => {
+    if (session) {
+      router.refresh();
+      onClose();
+    }
+  }, [session, router, onClose]);
   return (
     <div>
       <Modal

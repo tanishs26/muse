@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
-import { Navbar, NavbarBrand, NavbarContent } from "@heroui/react";
 import { PlaceholdersAndVanishInputDemo } from "@/components/Input";
 import Button from "./Button";
+import useAuthModal from "@/hooks/useAuthModal";
+import { useRouter } from "next/navigation";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@/hooks/useUser";
+import { div } from "framer-motion/client";
+import { FaUser } from "react-icons/fa";
 
 export const AcmeLogo = () => {
   return (
@@ -18,6 +23,21 @@ export const AcmeLogo = () => {
 };
 
 const Header = () => {
+  const authModal = useAuthModal();
+  const router = useRouter();
+  const supabaseClient = useSupabaseClient();
+  const { user, subscription } = useUser();
+
+  const handleLogout = async () => {
+    const { error } = await supabaseClient.auth.signOut();
+    //TODO: Reset any playing songs while logging out;
+
+    router.refresh();
+    if (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full  flex justify-between h-18 items-center ">
       <div className=" flex justify-center">
@@ -27,12 +47,30 @@ const Header = () => {
         </div>
       </div>
       <div className="lg:flex mdflex hidden gap-3">
-        <PlaceholdersAndVanishInputDemo  />
+        <PlaceholdersAndVanishInputDemo />
       </div>
-      <div>
-        <Button className=" texy-neutral-500 border-none mr-2 ">Sign up</Button>
-        <Button className="mr-3 texy-neutral-500 antialiased ">Log in</Button>
-      </div>
+      {user ? (
+        <div className="flex justify-center items-center mr-7">
+          <Button
+            className="mr-2 text-black font-bold bg-white antialiased  "
+            onClick={handleLogout}
+          >
+            Log Out
+          </Button>
+          <div className="bg-orange-600 p-3 rounded-full">
+            <FaUser />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Button className="  border-none mr-2  " onClick={authModal.onOpen}>
+            Sign up
+          </Button>
+          <Button className="mr-3  antialiased " onClick={authModal.onOpen}>
+            Log in
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

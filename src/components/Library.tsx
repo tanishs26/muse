@@ -1,16 +1,29 @@
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadModal from "@/hooks/useUploadModal";
+import { useUser } from "@/hooks/useUser";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { TbLibrary, TbMusic, TbPlaylist } from "react-icons/tb";
 
 const Library = () => {
-  const onClick = () => {};
+  const authModal=useAuthModal()
+  const uploadModal=useUploadModal()
+  const{ user} =useUser()
+  const onClick = () => {
+    if(!user){
+      authModal.onOpen()
+    }
+    return uploadModal.onOpen();
+  };
   return (
-    <div className="flex flex-col mt-4 ">
-        <div className="inline-flex items-center gap-x-3 text-md cursor-pointer transition text-orange-600  hover:text-white">
-          <p>Create new playlist</p>
-          <AiOutlinePlus onClick={onClick} className="cursor-pointer   focus:rounded-4xl hover:scale-140"/>
-        </div>
-      
+    <div className="  group  flex flex-col mt-4 ">
+      <div className=" inline-flex items-center gap-x-3 text-md font-semibold cursor-pointer transition text-orange-600  group-hover:text-white">
+        <p>Create new playlist</p>
+        <AiOutlinePlus
+          onClick={onClick}
+          size={20}
+          className="cursor-pointer   group-active:scale-120 "
+        />
+      </div>
     </div>
   );
 };

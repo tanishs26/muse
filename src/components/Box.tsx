@@ -9,7 +9,7 @@ interface BoxProps {
 const Box: React.FC<BoxProps> = ({ children, className }) => {
   return (
     <div className={twMerge(`  rounded-lg w-full ${className}`) }>
-      {children}S
+      {children}
     </div>
   );
 };
