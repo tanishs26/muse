@@ -1,7 +1,13 @@
 import React from "react";
 import ListItems from "@/components/ListItems";
+import getSongs from "@/actions/getSongs";
+import { v4 as uuidv4 } from "uuid";
+import PageContent from "@/components/PageContent";
 
-const Page = () => {
+export const revalidate = 0;
+const  Page =async () => {
+  const songs=await getSongs()
+  
   return (
     <div className="p-7 w-full h-full bg-black/50 ">
       <div
@@ -17,11 +23,15 @@ const Page = () => {
       </div>
       <div className="mt-10 mb-7 ">
         <div className="flex justify-between items-center">
-          <h1 className="font-semibold text-2xl text-white">Recently Featured</h1>
+          <h1 className="font-semibold text-2xl text-white">
+            Recently Featured
+          </h1>
         </div>
-
+        <div>
+          <PageContent songs={songs}/>
+        </div>
       </div>
-    </div> 
+    </div>
   );
 };
 

@@ -6,9 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
 import { useUser } from "@/hooks/useUser";
-import { useId } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { title } from "process";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
@@ -67,7 +65,7 @@ const UploadModal = () => {
           });
       if (imageError) {
         setIsLoading(false);
-        return toast.error("image upload failed  ");
+        return toast.error("Image upload failed");
       }
       const { error: supabaseerror } = await supabaseClient
         .from("songs")

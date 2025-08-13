@@ -1,10 +1,23 @@
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
+import { ListMusic } from "lucide-react";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+interface Song {
+  id: string;
+  user_id: string;
+  author: string;
+  title: string;
+  song_path: string;
+  image_path: string;
+}
 
-const Library = () => {
+interface LibraryProps {
+  songs: Song[];
+}
+
+const Library: React.FC<LibraryProps> = ({ songs }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
@@ -24,6 +37,21 @@ const Library = () => {
           size={20}
           className="cursor-pointer   active:scale-120 "
         />
+      </div>
+      <div
+        className="flex gap-x-2 items-center text-neutral-400 font-semibold
+          mt-4
+          text-md "
+      >
+        <p>
+          <ListMusic />
+        </p>
+        Personals
+      </div>
+      <div>
+        {songs.map(item=>(
+          <div>{item.title}</div>
+        ))}
       </div>
     </div>
   );

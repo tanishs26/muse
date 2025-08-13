@@ -1,0 +1,32 @@
+"use client";
+import React from "react";
+import SongItem from "./SongItem";
+const PageContent = ({ songs }: any) => {
+  if (songs.length == 0) {
+    return (
+      <h1 className="mt-50 font-semibold  text-center text-2xl text-neutral-400">
+        Oops! No songs available
+      </h1>
+    );
+  } else {
+    return (
+      <div
+        className="grid
+    grid-cols-2
+    sm:grid-cols-3
+    md:grid-cols-3
+    lg:grid-cols-4
+    xl:grid-cols-5
+    2xl:grid-cols-8
+    gap-4
+    mt-10"
+      >
+        {songs.map((item: any) => (
+          <SongItem key={item.id} onClick={() => {}} data={item} />
+        ))}
+      </div>
+    );
+  }
+};
+
+export default PageContent;

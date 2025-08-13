@@ -18,6 +18,8 @@
     "@supabase/auth-helpers-react": "^0.5.0",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.55.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.525.0",

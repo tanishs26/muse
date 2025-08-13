@@ -6,11 +6,26 @@ import { BiSearch } from "react-icons/bi";
 import Box from "@/components/Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
-interface SidebarProps {
-  children: React.ReactNode;
+import { GrFavorite } from "react-icons/gr";
+import { ListMusic } from "lucide-react";
+interface Song {
+  id: string;
+  user_id: string;
+  author: string;
+  title: string;
+  song_path: string;
+  image_path: string;
 }
 
-const Sidebar = () => {
+
+interface SidebarProps {
+  children: React.ReactNode;
+  songs:Song[]
+}
+
+const Sidebar:React.FC<SidebarProps> = (
+  {children,songs}
+) => {
   const pathname = usePathname();
 
   const routes = useMemo(
@@ -39,9 +54,9 @@ const Sidebar = () => {
               <SidebarItem key={item.label} {...item} />
             ))}
           </div>
-          <Library/>
+          <Library songs={songs}/>
+          
         </Box>
-       
       </div>
     </div>
   );
