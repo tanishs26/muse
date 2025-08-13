@@ -8,6 +8,7 @@ import Footbar from "@/components/footbar";
 import SupabaseProvider from "@/providers/SupabaseProviders";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
+import ToasterProvider from "@/providers/ToasterPorvider";
 
 const font = Figtree({
   weight: ["400", "700"],
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${font.className} antialiased h-full`}>
+        <ToasterProvider/>
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider/>

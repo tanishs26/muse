@@ -1,32 +1,35 @@
-"use client";
+import React, { forwardRef, InputHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-import { PlaceholdersAndVanishInput } from "@/components/ui/placeholder";
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, disabled, ...props }, ref) => {
 
-export function PlaceholdersAndVanishInputDemo() {
-  const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
-  return (
-    <div className="h-[70px]  flex flex-col justify-center  items-center px-4 max-w-3xl">
-      
-      <PlaceholdersAndVanishInput
-        placeholders={placeholders}
-        onChange={handleChange}
-        onSubmit={onSubmit}
+    return <input
+    
+    type={type}
+    className={twMerge(`
+        flex
+        w-full
+        rounded-md
+        bg-neutral-700
+        border-transparent
+        px-3
+        py-3
+        text-sm
+        file:border-0
+        file:bg-transparent
+        file:text-sm
+        file:font-medium
+        placeholder:text-neutral-400
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+        focus:outline-none`,className)}
         
-      />
-    </div>
-  );
-}
+        disabled={disabled}
+        ref={ref}
+        {...props}/>;
+  }
+);
+// Input.displayName="Input"
+export default Input;

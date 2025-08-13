@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { PlaceholdersAndVanishInputDemo } from "@/components/Input";
+import { PlaceholdersAndVanishInputDemo } from "@/components/HeadInput";
 import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ const Header = () => {
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
     //TODO: Reset any playing songs while logging out;
-
+    router.replace(window.location.pathname);
     router.refresh();
     if (error) {
       console.log(error);
@@ -57,9 +57,9 @@ const Header = () => {
           >
             Log Out
           </Button>
-          <div className="bg-orange-600 p-3 rounded-full">
+          <Button className="bg-orange-600 text-white/50 border-0  p-3 rounded-full" onClick={()=>router.push('/account')}>
             <FaUser />
-          </div>
+          </Button>
         </div>
       ) : (
         <div>

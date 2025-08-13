@@ -5,14 +5,15 @@ import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const Library = () => {
-  const authModal=useAuthModal()
-  const uploadModal=useUploadModal()
-  const{ user} =useUser()
+  const authModal = useAuthModal();
+  const uploadModal = useUploadModal();
+  const { user } = useUser();
   const onClick = () => {
-    if(!user){
-      authModal.onOpen()
+    if (!user) {
+      authModal.onOpen();
+    } else {
+      uploadModal.onOpen();
     }
-    return uploadModal.onOpen();
   };
   return (
     <div className="  group  flex flex-col mt-4 ">
@@ -21,7 +22,7 @@ const Library = () => {
         <AiOutlinePlus
           onClick={onClick}
           size={20}
-          className="cursor-pointer   group-active:scale-120 "
+          className="cursor-pointer   active:scale-120 "
         />
       </div>
     </div>

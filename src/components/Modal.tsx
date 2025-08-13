@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
             p-[25px]
             bg-neutral-900/90
             border
-            border-neutral-700
+            border-neutral-800
             max-h-full
             h-auto
             md:h-auto
@@ -39,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({
             translate-x-[-50%]
             translate-y-[-50%]
             focus:outline-none
-            rounded-md"
+            rounded-lg"
         >
           <Dialog.Title
             className="
