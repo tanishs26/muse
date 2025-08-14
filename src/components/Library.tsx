@@ -3,6 +3,7 @@ import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
 import { ListMusic } from "lucide-react";
 import React from "react";
+import Librarylist from "./Librarylist";
 import { AiOutlinePlus } from "react-icons/ai";
 interface Song {
   id: string;
@@ -29,28 +30,29 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
     }
   };
   return (
-    <div className="  group  flex flex-col mt-4 ">
-      <div className=" inline-flex items-center gap-x-3 text-md font-semibold cursor-pointer transition text-orange-600  group-hover:text-white">
+    <div className="  group  flex flex-col ">
+      <div className="p-4 inline-flex items-center gap-x-3 text-md font-semibold cursor-pointer transition   group-hover:text-white">
         <p>Create new playlist</p>
         <AiOutlinePlus
           onClick={onClick}
           size={20}
-          className="cursor-pointer   active:scale-120 "
+          className="cursor-pointer font-semibold hover:scale-120  active:scale-120 "
         />
       </div>
       <div
         className="flex gap-x-2 items-center text-neutral-400 font-semibold
-          mt-4
+          p-4
+          pt-0
           text-md "
       >
         <p>
           <ListMusic />
         </p>
-        Personals
+        <p> Personals</p>{" "}
       </div>
-      <div>
-        {songs.map(item=>(
-          <div>{item.title}</div>
+      <div className="max-w-full ">
+        {songs.map((item) => (
+          <Librarylist key={item.id} item={item} onClick={() => {}} />
         ))}
       </div>
     </div>

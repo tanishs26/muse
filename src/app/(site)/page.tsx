@@ -19,7 +19,7 @@ const  Page =async () => {
       gap-3
       mt-4 "
       >
-        <ListItems image="/liked.png" name={"Favourites"} href="liked" />
+        <ListItems image="/liked.png" name={"Favourites"} href="/liked" />
       </div>
       <div className="mt-10 mb-7 ">
         <div className="flex justify-between items-center">

@@ -7,18 +7,13 @@ import { useRouter } from "next/navigation";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import { div } from "framer-motion/client";
-import { FaUser } from "react-icons/fa";
+import { FaGuitar, FaUser } from "react-icons/fa";
+import Image from "next/image";
+import { Bold, GuitarIcon, LucideGuitar } from "lucide-react";
 
 export const AcmeLogo = () => {
   return (
-    <svg fill="none" height="46" viewBox="0 0 32 32" width="46">
-      <path
-        clipRule="evenodd"
-        d="M30.6482 10.1305L15.8785 7.02583L7.02923 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22H24.7272L19.8798 14.0457Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-    </svg>
+   <svg xmlns="http://www.w3.org/2000/svg" width="30"  height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-music-icon lucide-music"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
   );
 };
 
@@ -33,21 +28,22 @@ const Header = () => {
     //TODO: Reset any playing songs while logging out;
     router.replace(window.location.pathname);
     router.refresh();
+    window.location.reload();
+
     if (error) {
       console.log(error);
     }
   };
-
+  const img = user?.user_metadata.avatar_url;
   return (
     <div className="w-full  flex justify-between h-18 items-center ">
       <div className=" flex justify-center">
-        <div className="ml-4 flex justify-center items-center">
-          <AcmeLogo />
-          <p className="sm:block font-extrabold text-3xl">MUSE</p>
+        <div className="ml-4 flex justify-center items-center ">
+          <AcmeLogo  />
+          <p className="ml-1 sm:block font-extrabold text-3xl">MUSE</p>
         </div>
       </div>
-      <div className="lg:flex mdflex hidden gap-3">
-        <PlaceholdersAndVanishInputDemo />
+      <div className="lg:flex md:flex hidden gap-3">
       </div>
       {user ? (
         <div className="flex justify-center items-center mr-7">
@@ -57,8 +53,20 @@ const Header = () => {
           >
             Log Out
           </Button>
-          <Button className="bg-orange-600 text-white/50 border-0  p-3 rounded-full" onClick={()=>router.push('/account')}>
-            <FaUser />
+          <Button
+            className="bg-orange-600 text-white/50 border-0 w-[50px] h-[50px] p-3 relative rounded-full overflow-hidden"
+            onClick={() => router.push("/account")}
+          >
+            {img ? (
+              <Image
+                src={img}
+                alt="User avatar"
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <FaUser className="text-white text-lg flex justify-center items-center ml-1 mb-0.5" />
+            )}
           </Button>
         </div>
       ) : (
