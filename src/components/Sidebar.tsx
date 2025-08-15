@@ -17,15 +17,12 @@ interface Song {
   image_path: string;
 }
 
-
 interface SidebarProps {
   children: React.ReactNode;
-  songs:Song[]
+  songs: Song[];
 }
 
-const Sidebar:React.FC<SidebarProps> = (
-  {children,songs}
-) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
   const pathname = usePathname();
 
   const routes = useMemo(
@@ -33,15 +30,24 @@ const Sidebar:React.FC<SidebarProps> = (
       {
         icon: HiHome,
         label: "Home",
-        active: pathname !== "/search",
+        active:
+          pathname !== "/search" &&
+          pathname !== "/playlist" &&
+          pathname !== "/liked",
         href: "/",
       },
       {
         icon: BiSearch,
         label: "Search",
-        active: pathname === "/search",
+        active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/playlist",
         href: "/search",
       },
+      // {
+      //   icon: ListMusic,
+      //   label: "Playlist",
+      //   active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/search",
+      //   href: "/playlist",
+      // },
     ],
     [pathname]
   );
@@ -54,8 +60,7 @@ const Sidebar:React.FC<SidebarProps> = (
               <SidebarItem key={item.label} {...item} />
             ))}
           </div>
-          <Library songs={songs}/>
-          
+          <Library songs={songs} />
         </Box>
       </div>
     </div>

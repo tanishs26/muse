@@ -26,7 +26,7 @@ const LikedContent:React.FC<LikedContentProps> = ({songs}) => {
                 {
                     songs.map(song=>(
 
-                        <LikedItem song={song} />
+                        <LikedItem key={song.id} song={song} />
                     ))
                 }
 

@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
-import SongItem from "./SongItem";
+import SongItem from "../../components/SongItem";
+import useOnPlay from "@/hooks/useOnPlay";
 const PageContent = ({ songs }: any) => {
+  const onPlay = useOnPlay(songs);
   if (songs.length == 0) {
     return (
       <h1 className="mt-50 font-semibold  text-center text-2xl text-neutral-400">
@@ -22,7 +24,14 @@ const PageContent = ({ songs }: any) => {
     mt-10"
       >
         {songs.map((item: any) => (
-          <SongItem key={item.id} onClick={() => {}} data={item} />
+          <SongItem
+            key={item.id}
+            onClick={(id: string) => {
+              onPlay(id);
+              console.log("clicked id:",id)
+            }}
+            data={item}
+          />
         ))}
       </div>
     );

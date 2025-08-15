@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IconContext } from "react-icons";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiFillLike, AiOutlineHeart, AiOutlineLike } from "react-icons/ai";
 
 interface LikedButtonProps {
   songId: string;

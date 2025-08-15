@@ -10,6 +10,7 @@ import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterPorvider";
 import getSongsbyUser from "@/actions/getSongsbyUser";
+import Player from "@/components/Player";
 
 const font = Figtree({
   weight: ["400", "700"],
@@ -44,6 +45,7 @@ export default async function RootLayout({
                 <Sidebar songs={userSongs}>{children}</Sidebar>
                 <main className="flex-1  overflow-auto ">{children}</main>
               </div>
+              <Player/>
               <Footbar />
             </div>
           </UserProvider>

@@ -14,12 +14,12 @@ const Footbar = () => {
     {
       icon: HiHome,
       label: "Home",
-      active: pathname !== "/search"&& pathname !== '/playlist',
+      active: pathname !== "/search"&& pathname !== '/playlist'&&pathname!=="/liked",
       href: "/",
     },
     {
       icon: BiSearch,
-      label: "Home",
+      label: "Search",
       active: pathname === "/search",
       href: "/search",
     },
@@ -32,7 +32,7 @@ const Footbar = () => {
   ];
 
   return (
-    <div className="sm:hidden flex justify-evenly items-center absolute bottom-5  left-1/2 transform -translate-x-1/2 text-center  text-white text-2xl w-[90%] overflow-hidden rounded-full gap-6  px-2 py-2 bg-white/10 backdrop-blur-xl">
+    <div className="md:hidden flex justify-evenly items-center absolute bottom-1  left-1/2 transform -translate-x-1/2 text-center  text-white text-2xl w-[90%] overflow-hidden rounded-full gap-6  px-2 py-2 bg-white/10 backdrop-blur-xl">
         {
             routes.map((item)=>{
                 return(
