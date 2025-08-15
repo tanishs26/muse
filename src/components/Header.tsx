@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { PlaceholdersAndVanishInputDemo } from "@/components/HeadInput";
+
 import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useRouter } from "next/navigation";

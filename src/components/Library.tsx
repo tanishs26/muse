@@ -52,7 +52,7 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
       </div>
       <div className="max-w-full ">
         {songs.map((item) => (
-          <Librarylist key={item.id} item={item} onClick={() => {}} />
+          <Librarylist className="hover:bg-amber-50/10" key={item.id} item={item} onClick={() => {}} />
         ))}
       </div>
     </div>

@@ -1,18 +1,12 @@
-import { Metadata } from "next";
 import getSongsByTitle from "@/actions/getSongsByTitle";
 import SearchInput from "@/components/SearchInput";
 import SearchContent from "./Components/SearchContent";
+import { Song } from "../../../types";
 
+export const revalidate = 0;
 
-const SearchPage = async ({
-  searchParams,
-}: {
-  searchParams?: { title?: string | string[] };
-}) => {
-  const title = Array.isArray(searchParams?.title)
-    ? searchParams.title[0]
-    : searchParams?.title ?? "";
-
+const SearchPage = async ({ searchParams }) => {
+  const title = searchParams?.title || "";
   const songs = await getSongsByTitle(title);
 
   return (
