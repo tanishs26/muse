@@ -2,7 +2,11 @@
 import React from "react";
 import SongItem from "../../components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
-const PageContent = ({ songs }: any) => {
+import { Song } from "../../../types";
+interface PageContentProps {
+  songs: Song[];
+}
+const PageContent: React.FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs);
   if (songs.length == 0) {
     return (
@@ -23,12 +27,12 @@ const PageContent = ({ songs }: any) => {
     gap-4
     mt-10"
       >
-        {songs.map((item: any) => (
+        {songs.map((item: Song) => (
           <SongItem
             key={item.id}
             onClick={(id: string) => {
               onPlay(id);
-              console.log("clicked id:",id)
+              console.log("clicked id:", id);
             }}
             data={item}
           />

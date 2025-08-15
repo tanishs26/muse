@@ -8,11 +8,11 @@ interface Song {
   image_path: string;
 }
 const useLoadImage = (song: Song) => {
+  const supabase = useSupabaseClient();
   if (!song) {
     return null;
   }
 
-  const supabase = useSupabaseClient();
   const { data } = supabase.storage
     .from("images")
     .getPublicUrl(song.image_path);

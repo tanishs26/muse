@@ -12,7 +12,7 @@ interface Song {
 interface LibrarylistProps {
   item: Song;
   onClick: (id: string) => void;
-  className: any;
+  className: string;
 }
 
 const Librarylist: React.FC<LibrarylistProps> = ({

@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import getSongs from "./getSongs";
+import { Song } from "../../types";
 
 const getSongsByTitle = async (title: string) => {
   const supabase = createServerComponentClient({ cookies });
@@ -17,6 +18,6 @@ if(!title){
   if (error) {
     console.log(error);
   }
-  return (data as any) || [];
+  return (data as Song[]) || [];
 };
 export default getSongsByTitle

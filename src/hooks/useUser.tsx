@@ -1,5 +1,10 @@
-
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Subscription, UserDetails } from "../../types";
 import { User } from "@supabase/auth-helpers-nextjs";
 import {
@@ -18,12 +23,13 @@ type UserContextType = {
 export const UserContext = createContext<UserContextType | undefined>(
   undefined
 );
+type MyUserContextProviderProps = {
+  children: ReactNode;
+};
 
-export interface Props {
-  [propname: string]: any;
-}
-
-export const MyUserContextProvider = (props: Props) => {
+export const MyUserContextProvider = ({
+  children,
+}: MyUserContextProviderProps) => {
   const {
     session,
     isLoading: isLoadingUser,
@@ -65,14 +71,7 @@ export const MyUserContextProvider = (props: Props) => {
       setSubscription(null);
       setIsLoadingData(false);
     }
-  }, [
-    user,
-    isLoadingUser,
-    isLoadingData,
-    userDetails,
-    subscription,
-    supabase,
-  ]);
+  }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase]);
 
   const value = {
     accessToken,
@@ -82,14 +81,13 @@ export const MyUserContextProvider = (props: Props) => {
     subscription,
   };
 
-  return <UserContext.Provider value={value} {...props} />;
-
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
-export const useUser=()=>{
-    const context=useContext(UserContext)
-    if(context===undefined){
-        throw new Error('useUser must be used within a MyUserCOntextProvider');
-    }
-    return context;
-}
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUser must be used within a MyUserCOntextProvider");
+  }
+  return context;
+};

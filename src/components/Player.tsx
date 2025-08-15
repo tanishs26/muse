@@ -8,8 +8,12 @@ import PlayerContent from "./PlayerContent";
 const Player = () => {
   const player = usePlayer();
   const { song } = useGetSongsByID(player?.activeId);
+  if(!song){
+    return null;
+  }
   const songPath = useLoadSong(song);
   console.log(songPath);
+  
   if (!song || !player?.activeId || !songPath) {
     return null;
   }
@@ -17,7 +21,7 @@ const Player = () => {
     <div className=" flex items-center absolute bottom-18 md:fixed md:bottom-0 bg-[#1d202b] py-2 h-[60px] rounded-md md:rounded-none md:h-[80px] md:w-full  left-[50%] transform -translate-x-1/2 w-[90%]">
         <PlayerContent 
          key={songPath}
-         song={song}
+         song={song!}
          songPath={songPath}/>
     </div>
   );
