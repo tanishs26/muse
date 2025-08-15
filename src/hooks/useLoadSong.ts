@@ -1,15 +1,11 @@
 
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Song } from "../../types";
 
 
 const useLoadSong = (song:Song) => {
-    const supabase=useSupabaseClient()
-    
-    if(!song){
-        return '';
-    }
-    const {data}=supabase.storage.from('songs').getPublicUrl(song?.song_path)
+    const {supabaseClient}=useSessionContext()   
+    const {data}=supabaseClient.storage.from('songs').getPublicUrl(song?.song_path)
     return data.publicUrl;
    
 }
