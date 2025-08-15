@@ -71,39 +71,40 @@ const PlayerContent = ({ song, songPath }: PlayerContentProps) => {
   const handlePlay = () => {
     if (!playing) {
       play();
-    }
-    else{
-    pause();
+    } else {
+      pause();
     }
   };
   const toggleMute = () => {
     if (volume === 0) {
       setVolume(1);
-    }
-    else{
-        setVolume(0);
+    } else {
+      setVolume(0);
     }
   };
   return (
     <div className="w-full">
       <div className="md:hidden flex justify-between w-full  items-center p-2 ">
-        <div className="flex items-center">
+        <div className="flex justify-between items-center">
           <div className="  rounded-md relative h-[45px] w-[45px] overflow-hidden  ">
             <Image fill src={imagePath || "/liked.png"} alt="No Img" />
           </div>
-          <div className="ml-4">
+          <div className="ml-4 flex justify-between flex-col">
             <h1 className="font-semibold  text-white text-md">{song?.title}</h1>
             <p className="text-sm mb-0.5 text-neutral-300">{song?.author}</p>
           </div>
         </div>
         {/* //Player Controls */}
 
-        <div className="  flex items-center">
-          <div className="ml-6 mt-1 ">
+        <div className="  flex gap-x-4    w-[100px] items-center">
+          <div className="  mt-1 ">
             <LikedButton songId={song?.id} />
           </div>
-          <button onClick={handlePlay} className="flex justify-center items-center  active:bg-white/10 hover:bg-white/10 rounded-full p-3   cursor-pointer active:scale-110">
-            <Icon size={32} className="ml-1" />
+          <button
+            onClick={handlePlay}
+            className="flex justify-center items-center  active:bg-white/10 hover:bg-white/10 p-2 rounded-full active:scale-110 "
+          >
+            {!playing ? <FaPlay size={26} className="ml-2"/> : <IoPause size={32} />}{" "}
           </button>
         </div>
       </div>
@@ -137,8 +138,11 @@ const PlayerContent = ({ song, songPath }: PlayerContentProps) => {
           >
             <IoPlaySkipBack size={28} />
           </button>
-          <button onClick={handlePlay} className=" active:bg-white/10 hover:bg-white/10 rounded-full p-3 cursor-pointer active:scale-110 text-neutral-400 hover:text-white">
-            <Icon size={32} className="ml-0.5" />
+          <button
+            onClick={handlePlay}
+            className=" active:bg-white/10 hover:bg-white/10 rounded-full p-3 cursor-pointer active:scale-110 text-neutral-400 hover:text-white"
+          >
+            {!playing ? <FaPlay size={28} /> : <IoPause size={32} />}
           </button>
           <button
             className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white"
@@ -154,7 +158,7 @@ const PlayerContent = ({ song, songPath }: PlayerContentProps) => {
             onClick={toggleMute}
             className="cursor-pointer"
           />
-          <Slider value={volume} onChange={ (value)=>setVolume(value)}/>
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
     </div>
