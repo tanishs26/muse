@@ -8,9 +8,6 @@ import PlayerContent from "./PlayerContent";
 const Player = () => {
   const player = usePlayer();
   const { song } = useGetSongsByID(player?.activeId);
-  if(!song){
-    return null;
-  }
   const songPath = useLoadSong(song);
   console.log(songPath);
   
