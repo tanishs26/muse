@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
@@ -20,7 +19,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [playing, setPlaying] = useState(false);
-  const [fullScreen,setFullScreen]=useState(false)
+  const [fullScreen, setFullScreen] = useState(false);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
@@ -64,6 +63,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   });
   useEffect(() => {
     sound?.play();
+    console.log("Desktop triggered");
     return () => {
       sound?.unload();
     };

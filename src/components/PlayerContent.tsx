@@ -61,6 +61,8 @@ const PlayerContent = ({ song, songPath,onOpen }: PlayerContentProps) => {
   });
   useEffect(() => {
     sound?.play();
+        console.log("Mobile yooo");
+
     return () => {
       sound?.unload();
     };
@@ -71,6 +73,7 @@ const PlayerContent = ({ song, songPath,onOpen }: PlayerContentProps) => {
     } else {
       pause();
     }
+    
   };
   const toggleMute = () => {
     if (volume === 0) {
@@ -80,35 +83,7 @@ const PlayerContent = ({ song, songPath,onOpen }: PlayerContentProps) => {
     }
   };
   return (
-    <div onClick={onOpen} className=" flex absolute bottom-18  bg-[#1d202b] py-2 h-[60px] rounded-md   left-[50%] transform -translate-x-1/2 w-[90%]">
-      <div
-        className="md:hidden flex justify-between w-full  items-center p-2 "
-      >
-        <div className="flex justify-between items-center">
-          <div className="  rounded-md relative h-[45px] w-[45px] overflow-hidden  ">
-            <Image fill src={imagePath || "/liked.png"} alt="No Img" />
-          </div>
-          <div className="ml-4 flex justify-between flex-col">
-            <h1 className="font-semibold  text-white text-md">{song?.title}</h1>
-            <p className="text-sm mb-0.5 text-neutral-300">{song?.author}</p>
-          </div>
-        </div>
-        {/* //Player Controls */}
-
-        <div className="flex gap-x-4 w-[100px] items-center">
-          <div className="mt-1">
-            <LikedButton songId={song?.id} />
-          </div>
-          <button
-            onClick={handlePlay}
-            className="flex justify-center items-center  active:bg-white/10 hover:bg-white/10 p-2 rounded-full active:scale-110 "
-          >
-            {!playing ? <FaPlay size={26} /> : <IoPause size={32} />}{" "}
-          </button>
-        </div>
-        
-      </div>
-    </div>
+   <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis cumque incidunt laborum ipsum ea! A sapiente sequi facere! Officia inventore quae provident cum neque. Neque eaque repudiandae beatae saepe laborum.</div>
   );
 };
 
