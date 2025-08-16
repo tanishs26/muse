@@ -1,23 +1,26 @@
+
 import React, { useState, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import { FaPlay } from "react-icons/fa";
-import { IoPause } from "react-icons/io5";
+import { IoPause, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
+import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
+import MobileViewPlayer from "./PlayerContentDesktop";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
-  onOpen:()=>void;
 }
-const PlayerContent = ({ song, songPath,onOpen }: PlayerContentProps) => {
+const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [playing, setPlaying] = useState(false);
+  const [fullScreen,setFullScreen]=useState(false)
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
@@ -80,36 +83,61 @@ const PlayerContent = ({ song, songPath,onOpen }: PlayerContentProps) => {
     }
   };
   return (
-    <div onClick={onOpen} className=" flex absolute bottom-18  bg-[#1d202b] py-2 h-[60px] rounded-md   left-[50%] transform -translate-x-1/2 w-[90%]">
-      <div
-        className="md:hidden flex justify-between w-full  items-center p-2 "
-      >
-        <div className="flex justify-between items-center">
-          <div className="  rounded-md relative h-[45px] w-[45px] overflow-hidden  ">
-            <Image fill src={imagePath || "/liked.png"} alt="No Img" />
+    <div className="w-full">
+      <div className="hidden md:flex p-4 items-center justify-between box-border max-h-full ">
+        {/* Author and title */}
+
+        <div className="flex ml-4 w-full">
+          <div className="w-[60px] h-[60px] relative  flex  rounded-md  overflow-hidden  ">
+            <Image
+              fill
+              src={imagePath || "/liked.png"}
+              alt="No Img"
+              className=""
+            />
           </div>
-          <div className="ml-4 flex justify-between flex-col">
-            <h1 className="font-semibold  text-white text-md">{song?.title}</h1>
-            <p className="text-sm mb-0.5 text-neutral-300">{song?.author}</p>
+          <div className="flex flex-col ml-4">
+            <h1 className="font-semibold text-white text-lg truncate">
+              {song?.title}
+            </h1>
+            <p className="text-md truncate text-neutral-300">{song?.author}</p>
           </div>
         </div>
+
         {/* //Player Controls */}
 
-        <div className="flex gap-x-4 w-[100px] items-center">
-          <div className="mt-1">
-            <LikedButton songId={song?.id} />
-          </div>
+        <div className=" flex gap-x-7  justify-center w-full  ">
+          <button
+            className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white"
+            onClick={onPlayPrev}
+          >
+            <IoPlaySkipBack size={28} />
+          </button>
           <button
             onClick={handlePlay}
-            className="flex justify-center items-center  active:bg-white/10 hover:bg-white/10 p-2 rounded-full active:scale-110 "
+            className=" active:bg-white/10 hover:bg-white/10 rounded-full p-3 cursor-pointer active:scale-110 text-neutral-400 hover:text-white"
           >
-            {!playing ? <FaPlay size={26} /> : <IoPause size={32} />}{" "}
+            {!playing ? <FaPlay size={28} /> : <IoPause size={32} />}
+          </button>
+          <button
+            className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white"
+            onClick={onPlayNext}
+          >
+            <IoPlaySkipForward size={28} />
           </button>
         </div>
-        
+        {/* Sound Player */}
+        <div className="flex w-full items-center justify-end ">
+          <VolumeIcon
+            size={24}
+            onClick={toggleMute}
+            className="cursor-pointer"
+          />
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
+        </div>
       </div>
     </div>
   );
 };
 
-export default PlayerContent;
+export default PlayerContentDesktop;

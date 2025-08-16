@@ -1,7 +1,6 @@
 import React from "react";
 import ListItems from "@/components/ListItems";
 import getSongs from "@/actions/getSongs";
-import { v4 as uuidv4 } from "uuid";
 import PageContent from "@/app/(site)/PageContent";
 
 export const revalidate = 0;

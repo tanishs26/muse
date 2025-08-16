@@ -31,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userSongs = await getSongsbyUser();
-  console.log(userSongs);
   return (
     <html lang="en" className="h-full">
       <body className={`${font.className} antialiased h-full`}>

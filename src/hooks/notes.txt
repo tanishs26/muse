@@ -15,25 +15,4 @@ prev: () => set((state) => {
 }),
 
 //FOr dekotp 
-<div className="flex px-4 items-center justify-between ">
-      <div className="relative h-[45px] w-[45px] overflow-hidden  ">
-        <Image fill src={imagePath || "/liked.png"} alt="No Img" />
-      </div>
-      <div className="ml-4">
-        <h1 className="font-semibold text-white text-lg">{song?.title}</h1>
-        <p className="text-md text-neutral-300">{song?.author}</p>
-      </div>
-      {/* //Player Controls */}
-
-      <div className="ml-26 flex gap-x-7  justify-center flex-1 ">
-        <button className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white">
-          <IoPlaySkipBack size={28} />
-        </button>
-        <button className=" active:bg-white/10 hover:bg-white/10 rounded-full p-3 cursor-pointer active:scale-110">
-          <Icon size={28} />
-        </button>
-        <button className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white">
-          <IoPlaySkipForward size={28} />
-        </button>
-      </div>
-    </div>
+ 
