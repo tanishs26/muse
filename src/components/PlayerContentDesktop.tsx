@@ -70,17 +70,16 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
     format: ["mp3"],
   });
   useEffect(() => {
-    sound?.play();
     if (song && user) {
       (async () => {
         const { data, error } = await supabaseClient
-        .from("history")
-        .insert({
-          user_id: user.id,
-          song_id: Number(song.id),
-          played_at: new Date(),
-        })
-        .select();
+          .from("history")
+          .insert({
+            user_id: user.id,
+            song_id: Number(song.id),
+            played_at: new Date(),
+          })
+          .select();
         if (error) {
           alert("Not inserted to history");
         } else {
@@ -89,10 +88,14 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
         console.log("clicked baby:", song.id);
       })();
     }
+  }, [song, user, supabaseClient]);
+  useEffect(() => {
+    sound?.play();
+
     return () => {
       sound?.unload();
     };
-  }, [sound,song,user,supabaseClient]);
+  }, [sound]);
   const handlePlay = () => {
     if (!playing) {
       play();
