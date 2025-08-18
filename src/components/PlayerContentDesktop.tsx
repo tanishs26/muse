@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
@@ -57,23 +57,26 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
     }
     player.setId(prevSong);
   };
-
+  const lastPlayedSongId = useRef<number | string | null>(null);
   const [play, { pause, sound }] = useSound(songPath, {
     volume: volume,
-    onplay: async () => {
+    onplay: () => {
       setPlaying(true);
-      if (user && song) {
-        const { data, error } = await supabaseClient.from("history").insert({
-          song_id: song.id,
-          played_at: new Date(),
-          user_id: user?.id,
-        });
-        if (data) {
-          console.log(data);
-        } else {
-          console.log(error?.message);
+      (async () => {
+        if (user && song && lastPlayedSongId.current !== song?.id) {
+          lastPlayedSongId.current = song.id;
+          const { data, error } = await supabaseClient.from("history").insert({
+            song_id: song.id,
+            played_at: new Date(),
+            user_id: user?.id,
+          });
+          if (error) {
+            alert(error.message);
+          } else {
+            console.log(data);
+          }
         }
-      }
+      })();
     },
     onend: () => {
       setPlaying(false), onPlayNext();
