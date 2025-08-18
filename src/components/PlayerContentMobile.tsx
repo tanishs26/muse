@@ -1,39 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import { FaPause, FaPlay } from "react-icons/fa";
-import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
+import {
+  IoPause,
+  IoPlay,
+  IoPlaySkipBack,
+  IoPlaySkipForward,
+} from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import useSound from "use-sound";
 import usePlayer from "@/hooks/usePlayer";
 import { RxCaretDown } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
-
+import ProgressBar from "./ProgressBar";
+import MobileProgressBar from "./MobileProgressbar";
+import { FastAverageColor } from "fast-average-color";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
+  fullScreen: boolean;
+  onClose: () => void;
+  onOpen: () => void;
 }
 
-const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
+const PlayerContentMobile = ({
+  fullScreen,
+  onClose,
+  onOpen,
+  song,
+  songPath,
+}: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
   const [playing, setPlaying] = useState(false);
-  const [fullScreen, setFullScreen] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [bgColor, setBgColor] = useState("rgb(0,0,0)");
 
-  const onClose = () => setFullScreen(false);
-  const onOpen = () => setFullScreen(true);
+  useEffect(() => {
+    if (!imgRef.current) return;
+    const fac = new FastAverageColor();
+    fac
+      .getColorAsync(imgRef.current)
+      .then((color) => setBgColor(color.rgb))
+      .catch(() => setBgColor("rgb(0,0,0)"));
+  }, [imagePath]);
 
   const onPlayNext = () => {
     if (player.ids.length === 0) return;
-    const index = player.ids.findIndex(id => id === player.activeId);
+    const index = player.ids.findIndex((id) => id === player.activeId);
     const next = player.ids[index + 1] || player.ids[0];
     player.setId(next);
   };
 
   const onPlayPrev = () => {
     if (player.ids.length === 0) return;
-    const index = player.ids.findIndex(id => id === player.activeId);
+    const index = player.ids.findIndex((id) => id === player.activeId);
     const prev = player.ids[index - 1] || player.ids[player.ids.length - 1];
     player.setId(prev);
   };
@@ -64,24 +87,29 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
   };
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {fullScreen ? (
-        <motion.div
-          key="fullscreen"
-          initial={{ opacity: 0, y: "100%" }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: "100%" }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="fixed inset-0 bg-gradient-to-b from-black to-gray-600 h-full z-50"
+        <div
+          className="fixed inset-0  h-full z-50 transition  duration-1000"
+          style={{
+            background: `linear-gradient(to bottom,${bgColor},#000000)`,
+          }}
         >
           <button
-            className="w-[50px] absolute left-5 top-5 active:bg-white/30 flex items-center rounded-full py-6 transition"
+            className="w-[50px]  mt-0 absolute left-2 top-0 active:bg-white/30 flex items-center rounded-full p-2 transition"
             onClick={onClose}
           >
             <RxCaretDown size={38} />
           </button>
 
           <div className="mt-24 mx-auto rounded-lg w-[360px] h-[360px] relative overflow-hidden">
+            <img
+              ref={imgRef}
+              src={imagePath || "/liked.png"}
+              alt="hidden-color-src"
+              crossOrigin="anonymous"
+              className="hidden"
+            />
             <Image src={imagePath || "/liked.png"} fill alt="No img" />
           </div>
 
@@ -94,8 +122,11 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
               <LikedButton songId={song?.id} />
             </div>
           </div>
+          <div className="px-10 mt-10 left-0.5 transform -translate-x-0.5 ">
+            <ProgressBar className={""} sound={sound} />
+          </div>
 
-          <div className="flex gap-x-9 justify-center w-full mt-10">
+          <div className="flex gap-x-9 justify-center w-full mt-15">
             <button
               className="active:scale-110 cursor-pointer scale-90 text-neutral-400 hover:text-white"
               onClick={onPlayPrev}
@@ -104,9 +135,9 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
             </button>
             <button
               onClick={handlePlay}
-              className="active:bg-white/10 hover:bg-white/10 rounded-full active:scale-110 text-neutral-400 p-4 hover:text-white"
+              className=" hover:bg-white/10 rounded-full border-2  text-black bg-white p-4 hover:text-white"
             >
-              {!playing ? <FaPlay size={38} /> : <FaPause size={38} />}
+              {!playing ? <IoPlay size={45} /> : <IoPause size={45} />}
             </button>
             <button
               className="active:scale-110 cursor-pointer scale-90 text-neutral-400 hover:text-white"
@@ -115,15 +146,14 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
               <IoPlaySkipForward size={30} />
             </button>
           </div>
-        </motion.div>
+        </div>
       ) : (
         <motion.div
-          key="minimized"
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="flex absolute bottom-18 bg-[#1d202b] py-2 h-[60px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-40"
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="flex absolute bottom-18 bg-black/80 py-2 h-[60px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-40 overflow-hidden"
         >
           <div className="md:hidden flex justify-between w-full items-center p-2">
             <div
@@ -134,8 +164,12 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
                 <Image fill src={imagePath || "/liked.png"} alt="No Img" />
               </div>
               <div className="ml-4 flex justify-between flex-col">
-                <h1 className="font-semibold text-white text-md">{song?.title}</h1>
-                <p className="text-sm mb-0.5 text-neutral-300">{song?.author}</p>
+                <h1 className="font-semibold text-white text-md">
+                  {song?.title}
+                </h1>
+                <p className="text-sm mb-0.5 text-neutral-300">
+                  {song?.author}
+                </p>
               </div>
             </div>
             <div className="flex gap-x-4 w-[100px] items-center">
@@ -146,10 +180,14 @@ const PlayerContentMobile = ({ song, songPath }: PlayerContentProps) => {
                 onClick={handlePlay}
                 className="flex justify-center items-center active:bg-white/10 hover:bg-white/10 p-2 rounded-full active:scale-110"
               >
-                {!playing ? <FaPlay size={26} /> : <FaPause size={26} />}
+                {!playing ? <IoPlay size={32} /> : <IoPause size={32} />}
               </button>
             </div>
           </div>
+          <MobileProgressBar
+            className={" overflow-hidden absolute bottom-0 m-0 p-0 w-full"}
+            sound={sound}
+          />
         </motion.div>
       )}
     </AnimatePresence>

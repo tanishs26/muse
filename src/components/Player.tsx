@@ -5,12 +5,15 @@ import usePlayer from "@/hooks/usePlayer";
 import React, { useEffect, useState } from "react";
 import PlayerContentDesktop from "./PlayerContentDesktop";
 import PlayerContentMobile from "./PlayerContentMobile";
-;
 const Player = () => {
   const player = usePlayer();
   const { song } = useGetSongsByID(player?.activeId);
   const songUrl = useLoadSong(song!);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [fullScreen, setFullScreen] = useState(false);
+
+  const onClose = () => setFullScreen(false);
+  const onOpen = () => setFullScreen(true);
   useEffect(() => {
     const checkScreenSize = () => {
       setIsDesktop(window.innerWidth >= 768);
@@ -30,7 +33,14 @@ const Player = () => {
     </div>
   ) : (
     <>
-      <PlayerContentMobile song={song!} songPath={songUrl!} key={songUrl} />
+      <PlayerContentMobile
+        onClose={onClose}
+        onOpen={onOpen}
+        fullScreen={fullScreen}
+        song={song!}
+        songPath={songUrl!}
+        key={songUrl}
+      />
     </>
   );
 };

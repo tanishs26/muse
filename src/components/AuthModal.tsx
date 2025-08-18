@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeMinimal, ThemeSupa } from "@supabase/auth-ui-shared";
 import { useEffect } from "react";
+import SpotifyButton from "./SpotifyButton"
 
 const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
@@ -52,6 +53,7 @@ const AuthModal = () => {
             },
           }}
         />
+        <SpotifyButton/>
       </Modal>
     </div>
   );

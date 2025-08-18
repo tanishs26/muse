@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
-import { FaPlay } from "react-icons/fa";
-import { IoPause, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
+import {IoPlay, IoPause, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
 import MobileViewPlayer from "./PlayerContentDesktop";
+import ProgressBarDesktop from "./ProgressBarDesktop";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
@@ -17,9 +17,8 @@ interface PlayerContentProps {
 const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(0.8);
   const [playing, setPlaying] = useState(false);
-  const [fullScreen, setFullScreen] = useState(false);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
@@ -84,9 +83,8 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   };
   return (
     <div className="w-full">
-      <div className="hidden md:flex p-4 items-center justify-between box-border max-h-full ">
+      <div className="hidden w-full md:flex p-4 items-center   max-h-full ">
         {/* Author and title */}
-
         <div className="flex ml-4 w-full">
           <div className="w-[60px] h-[60px] relative  flex  rounded-md  overflow-hidden  ">
             <Image
@@ -106,28 +104,33 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
 
         {/* //Player Controls */}
 
-        <div className=" flex gap-x-7  justify-center w-full  ">
+        <div className=" flex w-[500px] relative justify-center items-center mr-4 ">
           <button
-            className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white"
+            className=" active:scale-110 left-0  absolute cursor-pointer  text-neutral-400 hover:text-white"
             onClick={onPlayPrev}
           >
             <IoPlaySkipBack size={28} />
           </button>
           <button
             onClick={handlePlay}
-            className=" active:bg-white/10 hover:bg-white/10 rounded-full p-3 cursor-pointer active:scale-110 text-neutral-400 hover:text-white"
+            className="p-3 active:bg-white/10 hover:bg-white/10 rounded-full cursor-pointer  text-neutral-400 hover:text-white"
           >
-            {!playing ? <FaPlay size={28} /> : <IoPause size={32} />}
+            {!playing ? <IoPlay size={35} /> : <IoPause size={35} />}
           </button>
           <button
-            className=" active:scale-110  cursor-pointer scale-90 text-neutral-400 hover:text-white"
+            className="right-0 absolute active:scale-110  cursor-pointer  text-neutral-400 hover:text-white"
             onClick={onPlayNext}
           >
             <IoPlaySkipForward size={28} />
           </button>
         </div>
+        <div className="w-full">
+          <ProgressBarDesktop className={"relative w-full "} sound={sound} />
+        </div>
+
         {/* Sound Player */}
-        <div className="flex w-full items-center justify-end ">
+        <div className="flex w-[50%] items-center  gap-x-4 justify-end ">
+          <LikedButton songId={song?.id} />
           <VolumeIcon
             size={24}
             onClick={toggleMute}

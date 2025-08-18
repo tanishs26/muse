@@ -6,7 +6,7 @@ interface Slider {
   value?: number;
   onChange?: (value: number) => void;
 }
-const Slider: React.FC<Slider> = ({ value = 1, onChange }) => {
+const Slider: React.FC<Slider> = ({ value, onChange }) => {
   const handleChange = (newValue: number[]) => {
     onChange?.(newValue[0]);
   };
@@ -14,7 +14,7 @@ const Slider: React.FC<Slider> = ({ value = 1, onChange }) => {
     <RadixSlider.Root
       className="relative flex items-center select-none touch-none h-10 w-[50%]"
       defaultValue={[2]}
-      value={[value]}
+      value={[value!]}
       onValueChange={handleChange}
       max={1}
       step={0.1}

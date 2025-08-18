@@ -1,18 +1,3 @@
-//For Next and prev songs in usePlayer hook
-next: () => set((state) => {
-  const idx = state.ids.findIndex(id => id === state.activeId);
-  if (idx >= 0 && idx < state.ids.length - 1) {
-    return { activeId: state.ids[idx + 1] };
-  }
-  return state;
-}),
-prev: () => set((state) => {
-  const idx = state.ids.findIndex(id => id === state.activeId);
-  if (idx > 0) {
-    return { activeId: state.ids[idx - 1] };
-  }
-  return state;
-}),
 import React, { useState, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";

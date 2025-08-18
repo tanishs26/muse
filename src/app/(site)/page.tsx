@@ -6,7 +6,6 @@ import PageContent from "@/app/(site)/PageContent";
 export const revalidate = 0;
 const  Page =async () => {
   const songs=await getSongs()
-  
   return (
     <div className="p-7 w-full h-full bg-black/50 ">
       <div

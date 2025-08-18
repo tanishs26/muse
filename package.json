@@ -64,6 +64,9 @@
   "clsx": "^2.1.1",
   
     
+  "fast-average-color": "^9.5.0",
+  
+    
   "framer-motion": "^12.23.12",
   
     
@@ -74,6 +77,9 @@
   
     
   "next": "15.4.2",
+  
+    
+  "next-auth": "^4.24.11",
   
     
   "query-string": "^9.2.2",
