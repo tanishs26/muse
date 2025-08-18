@@ -28,7 +28,7 @@ const Player = () => {
     return null;
   }
   return isDesktop ? (
-    <div className="md:fixed bottom-0  bg-[#1d202b] md:h-[80px] w-full">
+    <div className="md:fixed bottom-0 md:h-[80px] w-full">
       <PlayerContentDesktop song={song!} songPath={songUrl!} key={songUrl!} />
     </div>
   ) : (

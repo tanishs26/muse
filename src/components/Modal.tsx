@@ -7,6 +7,7 @@ interface ModalProps {
   title: string;
   description: string;
   children: React.ReactNode;
+  className?:string
 }
 const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -14,13 +15,14 @@ const Modal: React.FC<ModalProps> = ({
   description,
   children,
   onChange,
+  className
 }) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-neutral-900/90 backdrop-blur-sm fixed inset-0" />
         <Dialog.Content
-          className="
+          className={`
             fixed
             p-[25px]
             bg-neutral-900/90
@@ -39,7 +41,8 @@ const Modal: React.FC<ModalProps> = ({
             translate-x-[-50%]
             translate-y-[-50%]
             focus:outline-none
-            rounded-lg"
+            rounded-lg
+            ${className}`}
         >
           <Dialog.Title
             className="

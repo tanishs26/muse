@@ -12,9 +12,10 @@ import { AiFillHeart, AiFillLike, AiOutlineHeart, AiOutlineLike } from "react-ic
 
 interface LikedButtonProps {
   songId: string;
+  className?:string
 }
 
-const LikedButton: React.FC<LikedButtonProps> = ({ songId }) => {
+const LikedButton: React.FC<LikedButtonProps> = ({ songId ,className}) => {
   const router = useRouter();
   const {supabaseClient}  = useSessionContext();
   const authModal = useAuthModal();
@@ -76,8 +77,8 @@ const LikedButton: React.FC<LikedButtonProps> = ({ songId }) => {
     <button onClick={handleClick}>
       <Icon
         size={28}
-        color={isLiked ? "#FF0000" : "white"}
-        className="hover:opacity-80 cursor-pointer"
+        color={isLiked ? "#FF0000" : "#D4D4D4"}
+        className={`hover:opacity-80 cursor-pointer ${className}`}
       />
     </button>
   );

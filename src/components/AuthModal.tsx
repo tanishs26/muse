@@ -29,12 +29,13 @@ const AuthModal = () => {
     }
   }, [session, router, onClose]);
   return (
-    <div>
+    <div >
       <Modal
         title="Welcome back"
         description="Login in to your account"
         isOpen={isOpen}
         onChange={onChange}
+        
       >
         <Auth
           theme="dark"
