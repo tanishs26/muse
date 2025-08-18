@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
+import { useUser } from "@/hooks/useUser";
 import {
   IoPlay,
   IoPause,
@@ -14,6 +15,8 @@ import useSound from "use-sound";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
 import ProgressBarDesktop from "./ProgressBarDesktop";
+import { useSessionContext } from "@supabase/auth-helpers-react";
+
 interface PlayerContentProps {
   song: Song;
   songPath: string;
@@ -24,7 +27,8 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   const [volume, setVolume] = useState(0.8);
   const [playing, setPlaying] = useState(false);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
-  
+  const { supabaseClient } = useSessionContext();
+  const { user } = useUser();
 
   const onPlayNext = () => {
     if (player.ids.length === 0) {
@@ -67,7 +71,18 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   });
   useEffect(() => {
     sound?.play();
-    console.log("Desktop triggered");
+    if (song && user) {
+      console.log("clicked baby:", song.id);
+
+      supabaseClient
+        .from("history")
+        .insert({
+          user_id: user.id,
+          song_id: song.id,
+          played_at: new Date(),
+        })
+        .select();
+    }
     return () => {
       sound?.unload();
     };
