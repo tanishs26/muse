@@ -29,7 +29,7 @@ const ProgressBarDesktop = ({ sound, className }) => {
   };
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   return (
-    <div className="w-full flex flex-col items-center absolute">
+    <div className="w-fu flex flex-col items-center absolute">
       <div
         className={`w-[100%] flex  h-2 relative items-center group overflow-hidden  ${className}`}
       >
@@ -37,7 +37,7 @@ const ProgressBarDesktop = ({ sound, className }) => {
           className={`w-full h-1 bg-neutral-400 absolute bottom-1  cursor-pointer rounded-md  `}
         ></div>
         <div
-          style={{ width: `${progress}%` }}
+          style={{ width: `${progress}%`}}
           className={` h-1 left-0 rounded-l-md bg-white absolute bottom-1 m-0 cursor-pointer transition-all duration-200`}
         ></div>
         <input
