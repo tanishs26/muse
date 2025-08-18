@@ -92,7 +92,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
     return () => {
       sound?.unload();
     };
-  }, [sound]);
+  }, [sound,song,user,supabaseClient]);
   const handlePlay = () => {
     if (!playing) {
       play();
