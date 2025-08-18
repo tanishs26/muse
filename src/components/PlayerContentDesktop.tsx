@@ -88,7 +88,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
         console.log("clicked baby:", song.id);
       })();
     }
-  }, [song, user, supabaseClient]);
+  }, [song]);
   useEffect(() => {
     sound?.play();
 
