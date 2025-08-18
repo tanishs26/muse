@@ -29,7 +29,7 @@ const ProgressBarDesktop = ({ sound, className }) => {
   };
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   return (
-    <div className="w-fu flex flex-col items-center absolute">
+    <div className="w-full flex flex-col items-center absolute">
       <div
         className={`w-[100%] flex  h-2 relative items-center group overflow-hidden  ${className}`}
       >
