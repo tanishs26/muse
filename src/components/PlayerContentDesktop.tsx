@@ -65,6 +65,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
       (async () => {
         if (user && song && lastPlayedSongId.current !== song?.id) {
           lastPlayedSongId.current = song.id;
+          
           const { data, error } = await supabaseClient.from("history").insert({
             song_id: song.id,
             played_at: new Date(),

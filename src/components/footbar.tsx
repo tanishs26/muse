@@ -14,7 +14,11 @@ const Footbar = () => {
     {
       icon: HiHome,
       label: "Home",
-      active: pathname !== "/search"&& pathname !== '/playlist'&&pathname!=="/liked",
+      active:
+        pathname !== "/search" &&
+        pathname !== "/playlist" &&
+        pathname !== "/liked" &&
+        pathname !== "/history",
       href: "/",
     },
     {
@@ -29,18 +33,19 @@ const Footbar = () => {
       active: pathname === "/playlist",
       href: "/playlist",
     },
+    {
+      icon: ListMusic,
+      label: "playlist",
+      active: pathname === "/history",
+      href: "/playlist",
+    },
   ];
 
   return (
     <div className="md:hidden flex justify-evenly items-center absolute bottom-1  left-1/2 transform -translate-x-1/2 text-center  text-white text-2xl w-[90%] overflow-hidden rounded-full gap-6  px-2 py-2 bg-white/10 backdrop-blur-xl">
-        {
-            routes.map((item)=>{
-                return(
-                    <FootbarItems key={item.href} {...item}/>
-                )
-            })
-        }
-     
+      {routes.map((item) => {
+        return <FootbarItems key={item.href} {...item} />;
+      })}
     </div>
   );
 };

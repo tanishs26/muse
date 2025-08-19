@@ -17,6 +17,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProgressBar from "./ProgressBar";
 import MobileProgressBar from "./MobileProgressbar";
 import { FastAverageColor } from "fast-average-color";
+import { useUser } from "@/hooks/useUser";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
@@ -37,6 +39,9 @@ const PlayerContentMobile = ({
   const [playing, setPlaying] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const [bgColor, setBgColor] = useState("rgb(0,0,0)");
+  const lastPlayedSongId = useRef<number | string | null>(null);
+  const { supabaseClient } = useSessionContext();
+  const { user } = useUser();
 
   useEffect(() => {
     if (!imgRef.current) return;
@@ -62,7 +67,25 @@ const PlayerContentMobile = ({
   };
 
   const [play, { pause, sound }] = useSound(songPath, {
-    onplay: () => setPlaying(true),
+    onplay: () => {
+      setPlaying(true);
+      (async () => {
+        if (user && song && lastPlayedSongId.current !== song?.id) {
+          lastPlayedSongId.current = song.id;
+
+          const { data, error } = await supabaseClient.from("history").insert({
+            song_id: song.id,
+            played_at: new Date(),
+            user_id: user?.id,
+          });
+          if (error) {
+            alert(error.message);
+          } else {
+            console.log(data);
+          }
+        }
+      })();
+    },
     onend: () => {
       setPlaying(false);
       onPlayNext();
