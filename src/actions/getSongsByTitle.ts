@@ -5,8 +5,7 @@ import { Song } from "../../types";
 
 const getSongsByTitle = async (title: string) => {
   const supabase = createServerComponentClient({ cookies });
-  const user=supabase.auth.getUser();
-  console.log(user)
+  
 
   if (!title) {
     const allSongs = await getSongs();

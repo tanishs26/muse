@@ -3,18 +3,17 @@ import React from "react";
 import SongItem from "../../components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "../../../types";
-import { useUser } from "@/hooks/useUser";
-import getSongs from "@/actions/getSongs";
+
 interface PageContentProps {
   songs: Song[];
 }
-const PageContent: React.FC<PageContentProps> = ({ songs }) => {
+const History: React.FC<PageContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs);
 
   if (songs.length == 0) {
     return (
       <h1 className="mt-50 font-semibold  text-center text-2xl text-neutral-400">
-        Oops! No songs available
+        No recently played songs
       </h1>
     );
   } else {
@@ -45,4 +44,4 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
   }
 };
 
-export default PageContent;
+export default History;

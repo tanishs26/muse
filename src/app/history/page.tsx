@@ -1,13 +1,13 @@
 import getSongsByHistory from "@/actions/getSongsById";
+import HistoryContent from "./HistoryContent";
 
 const History = async () => {
   const songs = await getSongsByHistory();
 
   return (
-    <div>
-      {songs.map((song) => (
-        <div key={song.id}>{song.title}</div>
-      ))}
+    <div className="w-full">
+       <HistoryContent songs={songs}/>
+      
     </div>
   );
 };

@@ -2,12 +2,11 @@
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
 import { HiHome } from "react-icons/hi";
-import { BiSearch } from "react-icons/bi";
+import { BiHistory, BiSearch } from "react-icons/bi";
 import Box from "@/components/Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
-import { GrFavorite } from "react-icons/gr";
-import { ListMusic } from "lucide-react";
+
 interface Song {
   id: string;
   user_id: string;
@@ -33,21 +32,22 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         active:
           pathname !== "/search" &&
           pathname !== "/playlist" &&
-          pathname !== "/liked",
+          pathname !== "/liked"&&
+          pathname!=='/history',
         href: "/",
       },
       {
         icon: BiSearch,
         label: "Search",
-        active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/playlist",
+        active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/playlist"&&pathname!=='/history',
         href: "/search",
       },
-      // {
-      //   icon: ListMusic,
-      //   label: "Playlist",
-      //   active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/search",
-      //   href: "/playlist",
-      // },
+      {
+        icon: BiHistory,
+        label: "History",
+        active: pathname !== "/" && pathname !== "/liked"&&pathname !== "/search" ,
+        href: "/history",
+      },
     ],
     [pathname]
   );
