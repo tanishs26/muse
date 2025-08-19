@@ -5,14 +5,17 @@ import { Song } from "../../types";
 
 const getSongsByTitle = async (title: string) => {
   const supabase = createServerComponentClient({ cookies });
-if(!title){
-    const allSongs=await getSongs()
-    return allSongs
-}
+  const user=supabase.auth.getUser();
+  console.log(user)
+
+  if (!title) {
+    const allSongs = await getSongs();
+    return allSongs;
+  }
   const { data, error } = await supabase
     .from("songs")
     .select("*")
-    .ilike('title',`%${title}%`)
+    .ilike("title", `%${title}%`)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -20,4 +23,4 @@ if(!title){
   }
   return (data as Song[]) || [];
 };
-export default getSongsByTitle
+export default getSongsByTitle;
