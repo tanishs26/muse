@@ -9,7 +9,8 @@ const getSongsByHistory = async (): Promise<Song[]> => {
   if (!user) {
     return [];
   }
-  const { data, error } = await supabase.rpc("distinct_song_ids", {
+  
+  const { data, error } = await supabase.rpc("songs_by_recently_played_unique", {
     uid: user.id,
   });
 
