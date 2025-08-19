@@ -6,9 +6,8 @@ const History = async () => {
   return (
     <div>
       {songs.map((song) => (
-        <div>{song.title}</div>
+        <div key={song.id}>{song.title}</div>
       ))}
-      heyy
     </div>
   );
 };
