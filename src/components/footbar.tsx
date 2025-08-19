@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 import { HiHome } from "react-icons/hi2";
-import { BiSearch } from "react-icons/bi";
+import { BiHistory, BiSearch } from "react-icons/bi";
 import { ListMusic } from "lucide-react";
 import { button } from "@heroui/theme";
 import FootbarItems from "./FootbarItems";
@@ -34,10 +34,10 @@ const Footbar = () => {
       href: "/playlist",
     },
     {
-      icon: ListMusic,
+      icon: BiHistory,
       label: "playlist",
       active: pathname === "/history",
-      href: "/playlist",
+      href: "/history",
     },
   ];
 
