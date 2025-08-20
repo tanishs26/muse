@@ -65,7 +65,6 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
       (async () => {
         if (user && song && lastPlayedSongId.current !== song?.id) {
           lastPlayedSongId.current = song.id;
-          
           const { data, error } = await supabaseClient.from("history").insert({
             song_id: song.id,
             played_at: new Date(),
@@ -110,8 +109,8 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
     }
   };
   return (
-    <div className="w-full h-full bg-white/20 ">
-      <div className="hidden w-full h-full md:flex p-4 backdrop-blur-lg bg-gray-900/10 items-center max-h-full ">
+    <div className="w-full h-full bg-black/20 ">
+      <div className="hidden w-full h-full md:flex p-4 backdrop-blur-sm border-t-1 border-t-white/20  bg-gray-900/10 items-center max-h-full ">
         {/* Author and title */}
         <div className=" w-1/3 flex gap-x-2  items-center">
           <div className="w-[60px] h-[60px]  relative rounded-md shadow-md  overflow-hidden  ">
