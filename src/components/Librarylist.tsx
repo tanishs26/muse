@@ -25,11 +25,10 @@ const Librarylist: React.FC<LibrarylistProps> = ({
     if (onClick) {
       return onClick(item.id);
     }
-    //TODO:Default turn on player
     
   };
   return (
-    <div className={`hover:bg-neutral-400/10 w-full h-full flex gap-x-5 rounded-md  p-4  cursor-pointer  items-center` }>
+    <div onClick={handleClick} className={`hover:bg-neutral-400/10 w-full h-full flex gap-x-5 rounded-md  p-4  cursor-pointer  items-center` }>
       <div>
         <Image
           className="object-fit  rounded-lg"

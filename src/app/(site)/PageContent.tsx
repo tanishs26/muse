@@ -3,8 +3,6 @@ import React from "react";
 import SongItem from "../../components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "../../../types";
-import { useUser } from "@/hooks/useUser";
-import getSongs from "@/actions/getSongs";
 interface PageContentProps {
   songs: Song[];
 }

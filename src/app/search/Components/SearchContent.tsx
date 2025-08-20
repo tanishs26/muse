@@ -1,14 +1,17 @@
 "use client";
-export const revalidate=0
+export const revalidate = 0;
 
 import Librarylist from "@/components/Librarylist";
 import { Song } from "../../../../types";
 import LikedButton from "./LikedButton";
+import useOnPlay from "@/hooks/useOnPlay";
 
 interface SearchContentProps {
   songs: Song[];
 }
 const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
+  const onPlay = useOnPlay(songs);
+
   if (songs.length === 0) {
     return (
       <div className="text-2xl text-center mt-50 text-neutral-400 font-semibold ">
@@ -22,7 +25,11 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
           {songs.map((song) => (
             <div key={song.id} className="flex group items-center ">
               <div className="flex-1 ">
-                <Librarylist item={song} className="" onClick={() => {}} />
+                <Librarylist
+                  item={song}
+                  className=""
+                  onClick={(id) => onPlay(id)}
+                />
               </div>
 
               <LikedButton songId={song.id} />
