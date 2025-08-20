@@ -32,7 +32,7 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
   return (
     <div className="  group  flex flex-col ">
       <div className="p-4 inline-flex items-center gap-x-3 text-md font-semibold cursor-pointer transition   group-hover:text-white">
-        <p>Create new playlist</p>
+        <p>Create new song</p>
         <AiOutlinePlus
           onClick={onClick}
           size={20}
