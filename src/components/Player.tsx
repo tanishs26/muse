@@ -14,7 +14,15 @@ const Player = () => {
   const onClose = () => setFullScreen(false);
   const onOpen = () => setFullScreen(true);
   const [volume, setVolume] = useState(1);
-  const handleVolume = (value:number) => setVolume(value);
+  const handleVolume = (value: number) => setVolume(value);
+  const [repeat, setRepeat] = useState(false);
+  const handleRepeat = () => {
+    if (repeat) {
+      setRepeat(false);
+    } else {
+      setRepeat(true);
+    }
+  };
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -33,7 +41,9 @@ const Player = () => {
     <div className="md:fixed bottom-0 md:h-[80px] w-full">
       <PlayerContentDesktop
         volume={volume}
-        handleVolume={(e:number)=>handleVolume(e)}
+        handleVolume={(e: number) => handleVolume(e)}
+        repeat={repeat}
+        handleRepeat={handleRepeat}
         song={song!}
         songPath={songUrl!}
         key={songUrl!}
@@ -44,6 +54,8 @@ const Player = () => {
       <PlayerContentMobile
         onClose={onClose}
         onOpen={onOpen}
+        repeat={repeat}
+        handleRepeat={handleRepeat}
         fullScreen={fullScreen}
         song={song!}
         songPath={songUrl!}

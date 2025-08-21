@@ -8,6 +8,9 @@ import {
   IoPause,
   IoPlaySkipBack,
   IoPlaySkipForward,
+  IoShuffleOutline,
+  IoShuffle,
+  IoRepeat,
 } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
@@ -21,14 +24,19 @@ interface PlayerContentProps {
   song: Song;
   songPath: string;
   volume: number;
-  handleVolume: (value:number) => void;
+  repeat: boolean;
+  handleRepeat: () => void;
+  handleVolume: (value: number) => void;
 }
 const PlayerContentDesktop = ({
   song,
   songPath,
   volume,
+  repeat,
+  handleRepeat,
   handleVolume,
 }: PlayerContentProps) => {
+  const lastPlayedSongId = useRef<number | string | null>(null);
   const imagePath = useLoadImage(song);
   const player = usePlayer();
   const [playing, setPlaying] = useState(false);
@@ -40,6 +48,7 @@ const PlayerContentDesktop = ({
     if (player.ids.length === 0) {
       return;
     }
+
     const currentSongIndex = player.ids.findIndex(
       (id) => id === player.activeId
     );
@@ -63,7 +72,7 @@ const PlayerContentDesktop = ({
     }
     player.setId(prevSong);
   };
-  const lastPlayedSongId = useRef<number | string | null>(null);
+
   const [play, { pause, sound }] = useSound(songPath, {
     volume: volume,
     onplay: () => {
@@ -84,18 +93,31 @@ const PlayerContentDesktop = ({
         }
       })();
     },
-    onend: () => {
-      setPlaying(false), onPlayNext();
-    },
     onpause: () => {
       setPlaying(false);
     },
     format: ["mp3"],
   });
-  useEffect(() => {}, [song]);
+  useEffect(() => {
+    if (!sound) return;
+
+    const handleEnd = () => {
+      if (repeat) {
+        sound.seek(0);
+        sound.play();
+      } else {
+        onPlayNext();
+      }
+    };
+
+    sound.on("end", handleEnd);
+    return () => {
+      sound.off("end", handleEnd);
+    };
+  }, [sound, repeat]); 
+
   useEffect(() => {
     sound?.play();
-
     return () => {
       sound?.unload();
     };
@@ -114,18 +136,14 @@ const PlayerContentDesktop = ({
       handleVolume(0);
     }
   };
+
   return (
     <div className="w-full h-full bg-black/20 ">
       <div className="hidden w-full h-full md:flex p-4 backdrop-blur-sm border-t-1 border-t-white/20  bg-gray-900/10 items-center max-h-full ">
         {/* Author and title */}
         <div className=" w-1/3 flex gap-x-2  items-center">
           <div className="w-[60px] h-[60px]  relative rounded-md shadow-md  overflow-hidden  ">
-            <Image
-              fill
-              src={imagePath || "/liked.png"}
-              alt="No Img"
-              className=""
-            />
+            <Image fill src={imagePath || "/liked.png"} alt="No Img" sizes="" />
           </div>
           <div className="flex flex-col ml-4">
             <h1 className="font-semibold text-white text-lg truncate">
@@ -164,12 +182,25 @@ const PlayerContentDesktop = ({
         {/* {progress bar} */}
 
         {/* Sound Player */}
-        <div className="flex flex-1 items-center justify-end space-x-4 mx-auto ">
+        <div className="flex flex-1  text-neutral-400 items-center justify-end space-x-4 mx-auto ">
+          {repeat ? (
+            <IoRepeat
+              size={30}
+              className="text-orange-500 cursor-pointer"
+              onClick={handleRepeat}
+            />
+          ) : (
+            <IoRepeat
+              onClick={handleRepeat}
+              size={30}
+              className="text-neutral-400 cursor-pointer"
+            />
+          )}
           <LikedButton songId={song?.id} className="scale-95 mt-0.5" />
           <VolumeIcon
             size={24}
             onClick={toggleMute}
-            className="cursor-pointer text-neutral-300"
+            className="cursor-pointer text-neutral-400"
           />
           <Slider value={volume} onChange={handleVolume} />
         </div>

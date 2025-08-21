@@ -7,6 +7,9 @@ import {
   IoPlay,
   IoPlaySkipBack,
   IoPlaySkipForward,
+  IoRepeat,
+  IoRepeatOutline,
+  IoRepeatSharp,
 } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import useSound from "use-sound";
@@ -18,18 +21,23 @@ import MobileProgressBar from "./MobileProgressbar";
 import { FastAverageColor } from "fast-average-color";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { IoMdRepeat } from "react-icons/io";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
   fullScreen: boolean;
+  repeat: boolean;
   onClose: () => void;
   onOpen: () => void;
+  handleRepeat: () => void;
 }
 
 const PlayerContentMobile = ({
   fullScreen,
   onClose,
   onOpen,
+  repeat,
+  handleRepeat,
   song,
   songPath,
 }: PlayerContentProps) => {
@@ -84,14 +92,27 @@ const PlayerContentMobile = ({
         }
       })();
     },
-    onend: () => {
-      setPlaying(false);
-      onPlayNext();
-    },
+
     onpause: () => setPlaying(false),
     format: ["mp3"],
   });
 
+  useEffect(() => {
+    if (!sound) return;
+
+    const handleEnd = () => {
+      if (repeat) {
+        sound?.seek(0);
+        sound.play();
+      } else {
+        onPlayNext();
+      }
+    };
+    sound.on("end", handleEnd);
+    return () => {
+      sound.off("end", handleEnd);
+    };
+  }, [repeat, sound]);
   useEffect(() => {
     sound?.play();
     return () => {
@@ -122,7 +143,7 @@ const PlayerContentMobile = ({
 
   return (
     <AnimatePresence>
-      {fullScreen ? (
+      {!fullScreen ? (
         <div
           className="fixed inset-0  h-full z-10 transition  duration-1000"
           style={{
@@ -178,6 +199,21 @@ const PlayerContentMobile = ({
               onClick={onPlayNext}
             >
               <IoPlaySkipForward size={30} />
+            </button>
+            <button className="absolute right-10 bottom-19">
+              {repeat ? (
+                <IoRepeat
+                  onClick={handleRepeat}
+                  size={30}
+                  className="text-neutral-200"
+                />
+              ) : (
+                <IoRepeat
+                  onClick={handleRepeat}
+                  size={30}
+                  className="text-neutral-500"
+                />
+              )}
             </button>
           </div>
         </div>

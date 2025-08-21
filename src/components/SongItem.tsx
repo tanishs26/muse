@@ -41,16 +41,20 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
       <div className="relative aspect-square rounded-md overflow-hidden w-full h-full">
         <Image
           className="object-cover "
-          src={imagePath || "liked.png"}
+          src={imagePath || "/liked.png"}
           fill
           alt="no image"
         />
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">
         <p className="font-semibold text-md truncate w-full">{data.title} </p>
-        <p className="text-sm text-neutral-400 pb-4 w-full truncate">{data.author}</p>
+        <p className="text-sm text-neutral-400 pb-4 w-full truncate">
+          {data.author}
+        </p>
       </div>
-      <div className="absolute bottom-25 right-5"><PlayButton/></div>
+      <div className="absolute bottom-25 right-5">
+        <PlayButton />
+      </div>
     </div>
   );
 };
