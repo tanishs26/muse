@@ -4,12 +4,14 @@ import { Song } from "../../../../types";
 import { useUser } from "@/hooks/useUser";
 import { useEffect } from "react";
 import LikedItem from "./LikedItem";
+import useOnPlay from "@/hooks/useOnPlay";
 interface LikedContentProps {
   songs: Song[];
 }
 
 const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
   const router = useRouter();
+  const onPlay = useOnPlay(songs);
   const { isLoading, user } = useUser();
   useEffect(() => {
     if (isLoading) {
@@ -26,7 +28,11 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
     return (
       <div className="overflow-y-auto px-5 py-2">
         {songs.map((song) => (
-          <LikedItem key={song.id} song={song} />
+          <LikedItem
+            onclick={(id: string) => onPlay(id)}
+            key={song.id}
+            song={song}
+          />
         ))}
       </div>
     );
