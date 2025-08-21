@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
-import { FaPause, FaPlay } from "react-icons/fa";
 import {
   IoPause,
   IoPlay,
@@ -19,6 +18,7 @@ import MobileProgressBar from "./MobileProgressbar";
 import { FastAverageColor } from "fast-average-color";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { usePathname, useRouter } from "next/navigation";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
@@ -36,13 +36,14 @@ const PlayerContentMobile = ({
 }: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
+  const pathname = usePathname();
   const [playing, setPlaying] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const [bgColor, setBgColor] = useState("rgb(0,0,0)");
   const lastPlayedSongId = useRef<number | string | null>(null);
   const { supabaseClient } = useSessionContext();
   const { user } = useUser();
-
+  const router = useRouter();
   useEffect(() => {
     if (!imgRef.current) return;
     const fac = new FastAverageColor();
@@ -108,12 +109,25 @@ const PlayerContentMobile = ({
       pause();
     }
   };
+  useEffect(() => {
+    if (!fullScreen) {
+      return;
+    }
+    history.pushState(null, "", location.href);
+    const onPopStateChange = () => {
+      onClose();
+    };
+    window.addEventListener("popstate", onPopStateChange);
+    return () => {
+      window.removeEventListener("popstate", onPopStateChange);
+    };
+  }, [fullScreen]);
 
   return (
     <AnimatePresence>
       {fullScreen ? (
         <div
-          className="fixed inset-0  h-full z-50 transition  duration-1000"
+          className="fixed inset-0  h-full z-10 transition  duration-1000"
           style={{
             background: `linear-gradient(to bottom,${bgColor},#000000)`,
           }}
@@ -175,33 +189,47 @@ const PlayerContentMobile = ({
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="flex absolute bottom-18 bg-black/80 py-2 h-[60px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-40 overflow-hidden"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="flex absolute bottom-18 bg-black/80 py-2 h-[62px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-10 overflow-x-hidden"
         >
-          <div className="md:hidden flex justify-between w-full items-center p-2">
-            <div
+          <div className="md:hidden flex  w-full items-center px-2">
+            <motion.div
+             drag="x"
+                dragConstraints={{ left: -50, right: 50 }} // limits drag area (adjust as needed)
+                dragElastic={0.2} // resistance while dragging
+
+                onDragEnd={(event, info) => {
+                  if (info.offset.x > 20) {
+                    // dragged right enough → play previous song
+                    onPlayPrev();
+                    play();
+                  } else if (info.offset.x < -20) {
+                    // dragged left enough → play next song
+                    onPlayNext();
+                    play();
+                  }
+                  // After drag ends, reset position smoothly
+                }}
               onClick={onOpen}
-              className="flex flex-1 mr-4 justify-start items-center cursor-pointer"
+              className="flex flex-1 mr-2 items-center cursor-pointer"
             >
               <div className="rounded-md relative h-[45px] w-[45px] overflow-hidden">
                 <Image fill src={imagePath || "/liked.png"} alt="No Img" />
               </div>
-              <div className="ml-4 flex justify-between flex-col">
+              <motion.div className="ml-4 flex flex-1 justify-between flex-col">
                 <h1 className="font-semibold text-white text-md">
                   {song?.title}
                 </h1>
-                <p className="text-sm mb-0.5 text-neutral-300">
-                  {song?.author}
-                </p>
-              </div>
-            </div>
+                <p className="text-sm  text-neutral-300">{song?.author}</p>
+              </motion.div>
+            </motion.div>
             <div className="flex gap-x-4 w-[100px] items-center">
-              <div className="mt-1">
+              <div>
                 <LikedButton songId={song?.id} />
               </div>
               <button
                 onClick={handlePlay}
-                className="flex justify-center items-center active:bg-white/10 hover:bg-white/10 p-2 rounded-full active:scale-110"
+                className="p-2 mb-1.5 active:bg-white/10 rounded-full"
               >
                 {!playing ? <IoPlay size={32} /> : <IoPause size={32} />}
               </button>
