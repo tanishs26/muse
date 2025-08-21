@@ -20,11 +20,17 @@ import { useSessionContext } from "@supabase/auth-helpers-react";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
+  volume: number;
+  handleVolume: (value:number) => void;
 }
-const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
+const PlayerContentDesktop = ({
+  song,
+  songPath,
+  volume,
+  handleVolume,
+}: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
-  const [volume, setVolume] = useState(0.8);
   const [playing, setPlaying] = useState(false);
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
   const { supabaseClient } = useSessionContext();
@@ -103,9 +109,9 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
   };
   const toggleMute = () => {
     if (volume === 0) {
-      setVolume(1);
+      handleVolume(1);
     } else {
-      setVolume(0);
+      handleVolume(0);
     }
   };
   return (
@@ -165,7 +171,7 @@ const PlayerContentDesktop = ({ song, songPath }: PlayerContentProps) => {
             onClick={toggleMute}
             className="cursor-pointer text-neutral-300"
           />
-          <Slider value={volume} onChange={(value) => setVolume(value)} />
+          <Slider value={volume} onChange={handleVolume} />
         </div>
       </div>
     </div>

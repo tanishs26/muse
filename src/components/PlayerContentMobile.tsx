@@ -18,7 +18,6 @@ import MobileProgressBar from "./MobileProgressbar";
 import { FastAverageColor } from "fast-average-color";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { usePathname, useRouter } from "next/navigation";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
@@ -36,14 +35,12 @@ const PlayerContentMobile = ({
 }: PlayerContentProps) => {
   const imagePath = useLoadImage(song);
   const player = usePlayer();
-  const pathname = usePathname();
   const [playing, setPlaying] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const [bgColor, setBgColor] = useState("rgb(0,0,0)");
   const lastPlayedSongId = useRef<number | string | null>(null);
   const { supabaseClient } = useSessionContext();
   const { user } = useUser();
-  const router = useRouter();
   useEffect(() => {
     if (!imgRef.current) return;
     const fac = new FastAverageColor();

@@ -5,7 +5,6 @@ import usePlayer from "@/hooks/usePlayer";
 import React, { useEffect, useState } from "react";
 import PlayerContentDesktop from "./PlayerContentDesktop";
 import PlayerContentMobile from "./PlayerContentMobile";
-import { useUser } from "@/hooks/useUser";
 const Player = () => {
   const player = usePlayer();
   const { song } = useGetSongsByID(player?.activeId);
@@ -14,6 +13,8 @@ const Player = () => {
   const [fullScreen, setFullScreen] = useState(false);
   const onClose = () => setFullScreen(false);
   const onOpen = () => setFullScreen(true);
+  const [volume, setVolume] = useState(1);
+  const handleVolume = (value:number) => setVolume(value);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -30,7 +31,13 @@ const Player = () => {
   }
   return isDesktop ? (
     <div className="md:fixed bottom-0 md:h-[80px] w-full">
-      <PlayerContentDesktop song={song!} songPath={songUrl!} key={songUrl!} />
+      <PlayerContentDesktop
+        volume={volume}
+        handleVolume={(e:number)=>handleVolume(e)}
+        song={song!}
+        songPath={songUrl!}
+        key={songUrl!}
+      />
     </div>
   ) : (
     <>
