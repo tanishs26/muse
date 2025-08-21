@@ -21,7 +21,6 @@ import MobileProgressBar from "./MobileProgressbar";
 import { FastAverageColor } from "fast-average-color";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { IoMdRepeat } from "react-icons/io";
 interface PlayerContentProps {
   song: Song;
   songPath: string;
