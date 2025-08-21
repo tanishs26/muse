@@ -11,7 +11,7 @@ const LikedItem: React.FC<LikedItemProps> = ({ song }) => {
     
   const imagePath = useLoadImage(song);
   return (
-    <div className="w-full rounded-lg flex items-center justify-between m-4 p-2 hover:bg-neutral-900 active:bg-neutral-900 pr-15">
+    <div className="w-full rounded-lg flex items-center justify-between m-4 p-2 hover:bg-neutral-900 active:bg-neutral-900 pr-9">
       <div className="flex items-center">
         <div className="relative w-[60px] h-[60px] rounded-md overflow-hidden mr-4">
           <Image src={imagePath||'/liked.png'} fill alt="no img" className="object-cover" />

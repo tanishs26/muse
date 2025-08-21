@@ -21,11 +21,10 @@ const Header = () => {
   const authModal = useAuthModal();
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
-  const { user, subscription } = useUser();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    //TODO: Reset any playing songs while logging out;
     router.replace(window.location.pathname);
     router.refresh();
     window.location.reload();
@@ -46,7 +45,7 @@ const Header = () => {
       <div className="lg:flex md:flex hidden gap-3">
       </div>
       {user ? (
-        <div className="flex justify-center items-center mr-7">
+        <div className="flex justify-center items-center mr-4">
           <Button
             className="mr-2 text-black font-bold bg-white antialiased  "
             onClick={handleLogout}

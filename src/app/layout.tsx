@@ -38,11 +38,11 @@ export default async function RootLayout({
           <SupabaseProvider>
             <UserProvider>
               <ModalProvider />
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col ">
                 <Header />
                 <div className="flex flex-1 overflow-hidden">
                   <Sidebar songs={userSongs}>{children}</Sidebar>
-                  <main className="flex-1 overflow-auto ">{children}</main>
+                  <main className=" overflow-y-auto ">{children}</main>
                 </div>
                 <Player />
                 <Footbar />
