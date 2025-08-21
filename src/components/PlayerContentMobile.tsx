@@ -194,22 +194,18 @@ const PlayerContentMobile = ({
         >
           <div className="md:hidden flex  w-full items-center px-2">
             <motion.div
-             drag="x"
-                dragConstraints={{ left: -50, right: 50 }} // limits drag area (adjust as needed)
-                dragElastic={0.2} // resistance while dragging
-
-                onDragEnd={(event, info) => {
-                  if (info.offset.x > 20) {
-                    // dragged right enough → play previous song
-                    onPlayPrev();
-                    play();
-                  } else if (info.offset.x < -20) {
-                    // dragged left enough → play next song
-                    onPlayNext();
-                    play();
-                  }
-                  // After drag ends, reset position smoothly
-                }}
+              drag="x"
+              dragConstraints={{ left: -50, right: 50 }}
+              dragElastic={0.1}
+              onDragEnd={(event, info) => {
+                if (info.offset.x > 20) {
+                  onPlayPrev();
+                  play();
+                } else if (info.offset.x < -20) {
+                  onPlayNext();
+                  play();
+                }
+              }}
               onClick={onOpen}
               className="flex flex-1 mr-2 items-center cursor-pointer"
             >
