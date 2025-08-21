@@ -9,7 +9,6 @@ const Liked = async () => {
 
   return (
     <div className="h-full w-full overflow-hidden overflow-y-auto">
-      <header>
         <div className=" w-full flex flex-col md:flex-row items-center gap-x-5 border-b-1 justify-center lg:justify-start gap-y-5  pb-4 text-gray-800 ">
           <div className="relative w-32 h-32 lg:h-44 lg:w-44">
             <Image fill src="/liked.png" alt="Nope" className="rounded-lg ml-2" />
@@ -18,7 +17,6 @@ const Liked = async () => {
             Favourites
           </h1>
         </div>
-      </header>
       <LikedContent songs={songs}/>
     </div>
   );

@@ -18,17 +18,16 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
   }, [isLoading, user, router]);
   if (songs.length === 0) {
     return (
-      <div className="text-center mt-[50%] font-semibold text-neutral-400 text-3xl">
+      <div className="w-full text-center mt-[50%] font-semibold text-neutral-400 text-3xl">
         No Favourites.
       </div>
     );
   } else {
     return (
-      <div className="flex flex-col overflow-y-auto overflow-x-hidden w-full">
+      <div className="overflow-y-auto px-5 py-2">
         {songs.map((song) => (
           <LikedItem key={song.id} song={song} />
         ))}
-
       </div>
     );
   }
