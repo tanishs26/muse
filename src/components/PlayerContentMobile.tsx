@@ -142,7 +142,7 @@ const PlayerContentMobile = ({
 
   return (
     <AnimatePresence>
-      {!fullScreen ? (
+      {fullScreen ? (
         <div
           className="fixed inset-0  h-full z-10 transition  duration-1000"
           style={{
