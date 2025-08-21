@@ -42,7 +42,7 @@ export default async function RootLayout({
                 <Header />
                 <div className="flex flex-1 overflow-hidden">
                   <Sidebar songs={userSongs}>{children}</Sidebar>
-                  <main className="flex-1  overflow-auto ">{children}</main>
+                  <main className="flex-1 overflow-auto ">{children}</main>
                 </div>
                 <Player />
                 <Footbar />

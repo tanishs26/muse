@@ -24,7 +24,7 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
     );
   } else {
     return (
-      <div className="w-full h-full overflow-y-auto">
+      <div className="overflow-y-auto">
         {songs.map((song) => (
           <LikedItem key={song.id} song={song} />
         ))}
