@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
   );
   return (
     <div>
-      <div className="hidden md:flex flex-col gap-y-2  h-full w-[300px] p-2">
+      <div className="hidden md:flex flex-col gap-y-2 bg-white/5   h-full w-[300px] p-2">
         <Box className="overflow-y-auto h-full py-2">
           <div className="flex flex-col gap-y-4">
             {routes.map((item) => (

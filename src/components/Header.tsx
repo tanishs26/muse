@@ -35,7 +35,7 @@ const Header = () => {
   };
   const img = user?.user_metadata.avatar_url;
   return (
-    <div className="w-full  flex justify-between h-18 items-center ">
+    <div className="w-full bg-white/5  flex justify-between h-18 items-center ">
       <div className=" flex justify-center">
         <div className="ml-4 flex justify-center items-center ">
           <AcmeLogo  />
