@@ -222,7 +222,7 @@ const PlayerContentMobile = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="flex absolute bottom-18 bg-black/80 py-2 h-[62px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-10 overflow-x-hidden"
+          className="flex truncate absolute bottom-18 bg-black/80 py-2 h-[62px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-10 overflow-x-hidden"
         >
           <div className="md:hidden flex  w-full items-center px-2">
             <motion.div

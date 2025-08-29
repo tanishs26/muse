@@ -25,7 +25,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
           flex items-center justify-between gap-x-3 text-md px-4 py-3
           text-md font-medium cursor-pointer
           transition hover:text-white
-          ${active ? "text-orange-600" : "text-neutral-400"}
+          ${active ? "text-white" : "text-neutral-400"}
         `
       )}
     >
@@ -34,12 +34,14 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
           className="
             absolute left-0 top-1 bottom-1 w-full
             border-l-4
-            bg-gradient-to-r from-orange-600/20 to-transparent text-orange-500
+            border-orange-500
+            bg-gradient-to-r from-orange-600/20 to-transparent
             shadow-lg
+            text-white
           "
         />
       )}
-      <Icon size={24} className="relative " />
+      <Icon size={24} className="relative  " />
       <p className="truncate w-full relative ">{label}</p>
     </Link>
   );

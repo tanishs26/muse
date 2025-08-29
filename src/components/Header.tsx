@@ -54,7 +54,6 @@ const Header = () => {
           </Button>
           <Button
             className="bg-orange-600 text-white/50 border-0 w-[50px] h-[50px] p-3 relative rounded-full overflow-hidden"
-            onClick={() => router.push("/account")}
           >
             {img ? (
               <Image
@@ -73,7 +72,7 @@ const Header = () => {
           <Button className="  border-none mr-2  " onClick={authModal.onOpen}>
             Sign up
           </Button>
-          <Button className="mr-3  antialiased " onClick={authModal.onOpen}>
+          <Button className="mr-3  border-orange-500 antialiased " onClick={authModal.onOpen}>
             Log in
           </Button>
         </div>
