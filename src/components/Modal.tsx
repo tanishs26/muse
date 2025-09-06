@@ -41,7 +41,7 @@ const Modal: React.FC<ModalProps> = ({
             translate-x-[-50%]
             translate-y-[-50%]
             focus:outline-none
-            rounded-lg
+            rounded-2xl
             ${className}`}
         >
           <Dialog.Title

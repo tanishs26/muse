@@ -26,7 +26,7 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
     xl:grid-cols-5
     2xl:grid-cols-6
     gap-4
-    mt-10"
+    my-10 pb-10"
       >
         {songs.map((item: Song) => (
           <SongItem

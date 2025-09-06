@@ -8,7 +8,7 @@ export const revalidate = 0;
 const Page = async () => {
   const songs = await getSongs();
   return (
-    <div className="p-7 w-full h-full bg-black/50 ">
+    <div className="p-7 w-full h-full bg-black/50 mb-10">
       <div
         className=" grid 
       grid-cols-1
@@ -30,7 +30,8 @@ const Page = async () => {
         <div className="w-full">
           <CarouseL songs={songs} />
         </div>
-        <div>
+        <h1 className="font-semibold text-2xl text-white">All Songs</h1>
+        <div className="mb-10">
           <PageContent songs={songs} />
         </div>
       </div>
