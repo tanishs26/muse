@@ -98,6 +98,7 @@ const UploadModal = () => {
       description="Please upload a mp3 file"
       isOpen={uploadModal.isOpen}
       onChange={onChange}
+      className="z-50"
     >
       {isLoading ? (
         <div className="flex flex-col items-center py-8">

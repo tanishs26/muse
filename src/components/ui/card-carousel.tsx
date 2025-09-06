@@ -61,13 +61,14 @@ export const CardCarousel: React.FC<CarouselProps> = ({
   `;
   const onPlay = useOnPlay(songs);
   return (
-    <section className="w-full">
+    <section className="z-5 w-full">
       <style>{css}</style>
-      <div className="mx-auto w-full max-w-5xl rounded-[24px]  p-2 shadow-sm md:rounded-t-[44px]">
+      <div className="mx-auto mask-l-from-80% mask-r-from-80%  w-full max-w-5xl rounded-[24px]  p-2 shadow-sm md:rounded-t-[44px]">
         <div className="relative mx-auto flex w-full flex-col rounded-[24px] border  bg-neutral-800/5 p-2 shadow-sm md:items-start md:gap-8 md:rounded-b-[20px] md:rounded-t-[40px] md:p-2 border-black ">
           <div className="flex w-full items-center justify-center gap-4">
             <div className="w-full">
               <Swiper
+              className="-z-10"
                 spaceBetween={50}
                 autoplay={{
                   delay: autoplayDelay,

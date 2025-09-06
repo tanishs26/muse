@@ -35,6 +35,7 @@ const AuthModal = () => {
         description="Login in to your account"
         isOpen={isOpen}
         onChange={onChange}
+        className="z-50"
         
       >
         <Auth

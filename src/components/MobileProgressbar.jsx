@@ -44,7 +44,6 @@ const MobileProgressBar = ({ sound, className }) => {
             width: `${progressPercent}%`,
           }}
         ></div>
-        {/* Hidden real slider for interaction */}
         <input
           type="range"
           value={currentTime}
