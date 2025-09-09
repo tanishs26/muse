@@ -7,9 +7,8 @@ import {
 } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
-import { ThemeMinimal, ThemeSupa } from "@supabase/auth-ui-shared";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useEffect } from "react";
-import SpotifyButton from "./SpotifyButton"
 
 const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
@@ -18,7 +17,7 @@ const AuthModal = () => {
   const { session } = useSessionContext();
   const { onClose, isOpen } = useAuthModal();
   const onChange = (open: boolean) => {
-    if (isOpen) {
+    if (open) {
       onClose();
     }
   };
@@ -55,7 +54,6 @@ const AuthModal = () => {
             },
           }}
         />
-        <SpotifyButton/>
       </Modal>
     </div>
   );

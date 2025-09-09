@@ -8,8 +8,7 @@ import {
   IoPlaySkipBack,
   IoPlaySkipForward,
   IoRepeat,
-  IoRepeatOutline,
-  IoRepeatSharp,
+
 } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";
 import useSound from "use-sound";
@@ -51,11 +50,10 @@ const PlayerContentMobile = ({
   useEffect(() => {
     if (!imgRef.current) return;
     const fac = new FastAverageColor();
-    fac
-      .getColorAsync(imgRef.current)
+    fac.getColorAsync(imgRef.current)
       .then((color) => setBgColor(color.rgb))
       .catch(() => setBgColor("rgb(0,0,0)"));
-  }, [imagePath]);
+  },);
 
   const onPlayNext = () => {
     if (player.ids.length === 0) return;
@@ -143,8 +141,11 @@ const PlayerContentMobile = ({
   return (
     <AnimatePresence>
       {fullScreen ? (
-        <div
-          className="fixed inset-0  h-full z-10 transition  duration-1000"
+        <motion.div
+        layoutId="player-mobile"
+  
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="fixed inset-0  h-full z-50 transition  duration-1000"
           style={{
             background: `linear-gradient(to bottom,${bgColor},#000000)`,
           }}
@@ -156,16 +157,19 @@ const PlayerContentMobile = ({
             <RxCaretDown size={38} />
           </button>
 
-          <div className="mt-24 mx-auto rounded-lg w-[360px] h-[360px] relative overflow-hidden">
+          <motion.div 
+          layoutId="image-id"
+          className="mt-24 mx-auto rounded-lg w-[360px] h-[360px] relative overflow-hidden">
             <img
               ref={imgRef}
               src={imagePath || "/liked.png"}
               alt="hidden-color-src"
               crossOrigin="anonymous"
               className="hidden"
+       
             />
             <Image src={imagePath || "/liked.png"} fill alt="No img" />
-          </div>
+          </motion.div>
 
           <div className="w-full flex items-center relative">
             <div className="px-8 flex flex-col sm:items-center items-start truncate mt-10">
@@ -215,14 +219,15 @@ const PlayerContentMobile = ({
               )}
             </button>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <motion.div
+        layoutId="player-mobile"
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="flex truncate absolute bottom-18 bg-black/80 py-2 h-[62px] rounded-md left-[50%] transform -translate-x-1/2 w-[90%] z-10 overflow-x-hidden"
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="flex truncate fixed bottom-18 bg-black/80 py-2 h-[62px] rounded-md m-auto inset-x-0 w-[90%] z-10 overflow-x-hidden"
         >
           <div className="md:hidden flex  w-full items-center px-2">
             <motion.div
@@ -241,9 +246,12 @@ const PlayerContentMobile = ({
               onClick={onOpen}
               className="flex flex-1 mr-2 items-center cursor-pointer"
             >
-              <div className="rounded-md relative h-[45px] w-[45px] overflow-hidden">
+              <motion.div 
+                        layoutId="image-id"
+
+              className="rounded-md relative h-[45px] w-[45px] overflow-hidden">
                 <Image fill src={imagePath || "/liked.png"} alt="No Img" />
-              </div>
+              </motion.div>
               <motion.div className="ml-4 flex flex-1 justify-between flex-col">
                 <h1 className="font-semibold text-white text-md">
                   {song?.title}

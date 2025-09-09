@@ -8,8 +8,6 @@ import {
   IoPause,
   IoPlaySkipBack,
   IoPlaySkipForward,
-  IoShuffleOutline,
-  IoShuffle,
   IoRepeat,
 } from "react-icons/io5";
 import LikedButton from "@/app/search/Components/LikedButton";

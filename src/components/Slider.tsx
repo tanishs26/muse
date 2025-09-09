@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import * as RadixSlider from "@radix-ui/react-slider";
 
 interface Slider {

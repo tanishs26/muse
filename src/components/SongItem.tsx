@@ -1,6 +1,5 @@
 "use client";
 import useLoadImage from "@/hooks/useLoadImage";
-import { PlayIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import PlayButton from "./PlayButton";

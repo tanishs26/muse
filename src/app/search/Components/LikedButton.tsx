@@ -2,13 +2,11 @@
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
-import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { button } from "framer-motion/client";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { IconContext } from "react-icons";
-import { AiFillHeart, AiFillLike, AiOutlineHeart, AiOutlineLike } from "react-icons/ai";
+import { AiFillHeart,  AiOutlineHeart,  } from "react-icons/ai";
 
 interface LikedButtonProps {
   songId: string;

@@ -1,5 +1,4 @@
 "use client";
-import { style } from "framer-motion/client";
 import { Toaster } from "react-hot-toast";
 const ToasterProvider = () => {
   return (

@@ -21,7 +21,7 @@ interface SidebarProps {
   songs: Song[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({  songs }) => {
   const pathname = usePathname();
 
   const routes = useMemo(

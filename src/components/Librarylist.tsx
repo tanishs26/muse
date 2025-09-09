@@ -12,13 +12,12 @@ interface Song {
 interface LibrarylistProps {
   item: Song;
   onClick: (id: string) => void;
-  className: string;
+  className?: string;
 }
 
 const Librarylist: React.FC<LibrarylistProps> = ({
   item,
   onClick,
-  className,
 }) => {
   const imagePath = useLoadImage(item);
   const handleClick = () => {

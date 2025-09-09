@@ -6,10 +6,8 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { useRouter } from "next/navigation";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
-import { div } from "framer-motion/client";
-import { FaGuitar, FaUser } from "react-icons/fa";
+import {  FaUser } from "react-icons/fa";
 import Image from "next/image";
-import { Bold, GuitarIcon, LucideGuitar } from "lucide-react";
 
 export const AcmeLogo = () => {
   return (
@@ -42,8 +40,7 @@ const Header = () => {
           <p className="ml-1 sm:block font-extrabold text-3xl">MUSE</p>
         </div>
       </div>
-      <div className="lg:flex md:flex hidden gap-3">
-      </div>
+    
       {user ? (
         <div className="flex justify-center items-center mr-4">
           <Button

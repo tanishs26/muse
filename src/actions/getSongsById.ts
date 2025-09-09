@@ -18,7 +18,7 @@ const getSongsByHistory = async (): Promise<Song[]> => {
     console.log("Get songs by id :", error.message);
   }
   const ids = data.map((id: { song_id: number }) => id.song_id);
-  const { data: allSongs, error: Songerror } = await supabase
+  const { data: allSongs} = await supabase
     .from("songs")
     .select("*")
     .in("id", ids);
