@@ -5,6 +5,8 @@ import Librarylist from "@/components/Librarylist";
 import { Song } from "../../../../types";
 import LikedButton from "./LikedButton";
 import useOnPlay from "@/hooks/useOnPlay";
+import { motion } from "framer-motion";
+
 
 interface SearchContentProps {
   songs: Song[];
@@ -22,8 +24,25 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
     return (
       <div>
         <div className=" flex flex-col gap-y-2 w-full  px-6">
-          {songs.map((song) => (
-            <div key={song.id} className="flex group items-center ">
+          {songs.map((song,idx) => (
+            <motion.div
+              key={song.id}
+              className="flex group items-center "
+              initial={{
+                filter: "blur(10px)",
+                opacity: 0,
+                y: -60,
+              }}
+              animate={{
+                filter: "blur(0px)",
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: idx * 0.2,
+                ease: "easeInOut",
+              }}
+            >
               <div className="flex-1 ">
                 <Librarylist
                   item={song}
@@ -33,7 +52,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
               </div>
 
               <LikedButton songId={song.id} />
-            </div>
+            </motion.div>
           ))}
         </div>
         <div></div>

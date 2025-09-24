@@ -3,6 +3,7 @@ import React from "react";
 import SongItem from "../../components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
 import { Song } from "../../../types";
+import {motion} from 'framer-motion'
 interface PageContentProps {
   songs: Song[];
 }
@@ -28,15 +29,34 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
     gap-4
     my-10 pb-10"
       >
-        {songs.map((item: Song) => (
-          <SongItem
-            key={item.id}
+        {songs.map((item: Song,idx) => (
+          <motion.div
+          initial={{
+            filter:"blur(10px)"
+            ,opacity:0,
+            y:-60
+          }}
+          animate={{
+            filter:"blur(0px)"
+            ,opacity:1,
+            y:0
+          }}
+          transition={{
+            delay:idx*0.2,
+            ease:"easeInOut",
+            
+          }}
+                      key={item.id}
+
+          >
+            <SongItem
             onClick={(id: string) => {
               onPlay(id);
               console.log("clicked id:", id);
             }}
             data={item}
           />
+          </motion.div>
         ))}
       </div>
     );
