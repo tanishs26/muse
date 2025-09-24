@@ -29,33 +29,32 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
     gap-4
     my-10 pb-10"
       >
-        {songs.map((item: Song,idx) => (
+        {songs.map((item: Song, idx) => (
           <motion.div
-          initial={{
-            filter:"blur(10px)"
-            ,opacity:0,
-            y:-60
-          }}
-          animate={{
-            filter:"blur(0px)"
-            ,opacity:1,
-            y:0
-          }}
-          transition={{
-            delay:idx*0.2,
-            ease:"easeInOut",
-            
-          }}
-                      key={item.id}
-
+            initial={{
+              opacity: 0,
+              y: -60,
+              filter: "blur(20px)",
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+            }}
+            transition={{
+              delay: idx * 0.15,
+              ease: "easeInOut",
+            }}
+         
+            key={item.id}
           >
             <SongItem
-            onClick={(id: string) => {
-              onPlay(id);
-              console.log("clicked id:", id);
-            }}
-            data={item}
-          />
+              onClick={(id: string) => {
+                onPlay(id);
+                console.log("clicked id:", id);
+              }}
+              data={item}
+            />
           </motion.div>
         ))}
       </div>

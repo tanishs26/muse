@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muse - Music streaming application
+
+A modern, responsive music streaming web app built with React.js, Next.js, Tailwind CSS, Supabase, Framer Motion, and Zustand.
+
+🔗 **Live Demo:** [https://muse-tan.vercel.app](https://muse-tan.vercel.app)
+
+---
+
+## Features
+
+- Responsive design supporting both desktop and mobile views  
+- Seamless audio playback with play, pause, skip, and volume controls  
+- Full-screen mobile player with smooth entrance and exit animations  
+- User authentication via Supabase with Google and GitHub OAuth providers  
+- Personalized recently played song history stored securely per user  
+- Centralized playback state management using Zustand for synchronized controls  
+- Backend powered by Supabase with custom PostgreSQL functions  
+- Fast performance and modern UI built with Tailwind CSS  
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v16 or higher recommended)  
+- npm or yarn  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation and Running Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+    ```
+    git clone https://github.com/tanishs26/muse.git
+    cd muse-player
+    ```
+2. Install dependencies:
+    ```
+    npm install
+    # or
+    yarn install
+    ```
+3. Setup Supabase project and obtain your API credentials.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Create a `.env.local` file based on `.env.example` and add:
+    ```
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+    ```
 
-## Learn More
+5. Run any database migrations or seeders if provided.
 
-To learn more about Next.js, take a look at the following resources:
+6. Start development server:
+    ```
+    npm run dev
+    # or
+    yarn dev
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- React.js & Next.js (frontend framework)  
+- Zustand (state management)  
+- Tailwind CSS (styling)  
+- Supabase (auth, database, backend)  
+- Framer Motion (animations)  
+- Vercel (deployment)  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Contribution
+
+Open issues or pull requests are always welcome to improve the project.
+
+---
+
