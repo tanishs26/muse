@@ -28,7 +28,7 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
     );
   } else {
     return (
-      <div className="overflow-y-auto px-5 py-2 pb-10 ">
+      <div className="overflow-y-auto px-5 py-2 pb-50 ">
         {songs.map((song,idx) => (
           <motion.div
             initial={{
