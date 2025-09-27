@@ -7,7 +7,7 @@ interface ModalProps {
   title: string;
   description: string;
   children: React.ReactNode;
-  className?:string
+  className?: string;
 }
 const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({
   description,
   children,
   onChange,
-  className
+  className,
 }) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
@@ -58,7 +58,8 @@ const Modal: React.FC<ModalProps> = ({
           </Dialog.Description>
           <div>{children}</div>
           <Dialog.Close asChild>
-            <button className="absolute
+            <button
+              className="absolute
             top-5
             right-5
             text-xl
@@ -68,7 +69,8 @@ const Modal: React.FC<ModalProps> = ({
             outline-0
             hover:transition
             cursor-pointer
-            ">
+            "
+            >
               <IoMdClose />
             </button>
           </Dialog.Close>
