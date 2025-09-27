@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Song } from "../../types";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
+import { motion } from "framer-motion";
 import { useUser } from "@/hooks/useUser";
 import {
   IoPlay,
@@ -17,6 +18,8 @@ import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
 import ProgressBarDesktop from "./ProgressBarDesktop";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import AudioVisualizer from "./soundbar";
+import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 
 interface PlayerContentProps {
   song: Song;
@@ -41,6 +44,7 @@ const PlayerContentDesktop = ({
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
   const { supabaseClient } = useSessionContext();
   const { user } = useUser();
+  const [showVisuals, setVisuals] = useState(true);
 
   const onPlayNext = () => {
     if (player.ids.length === 0) {
@@ -112,7 +116,7 @@ const PlayerContentDesktop = ({
     return () => {
       sound.off("end", handleEnd);
     };
-  }, [sound, repeat]); 
+  }, [sound, repeat]);
 
   useEffect(() => {
     sound?.play();
@@ -136,7 +140,70 @@ const PlayerContentDesktop = ({
   };
 
   return (
-    <div className="w-full h-full bg-black/20 ">
+    <div className="w-full h-full bg-black/20 relative ">
+      {showVisuals && (
+        <motion.div
+          initial={{
+            y: 600,
+            opacity: 0,
+            filter: "blur(20px)",
+          }}
+          animate={{
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+          }}
+          transition={{
+            ease: "easeInOut",
+          }}
+          className="w-[400px] h-[500px]  absolute -top-130 right-10 rounded-lg overflow-hidden shadow-md shadow-neutral-800 group transition-all duration-300 ease-in-out"
+        >
+          <RxCaretDown
+            className="fixed right-5 top-5 z-59 cursor-pointer hover:bg-neutral-100/15  rounded-full active:scale-90"
+            onClick={() => setVisuals(!showVisuals)}
+            size={36}
+          />
+
+          <Image
+            fill
+            src={imagePath || "/liked.png"}
+            alt="no-img"
+            className=" group-hover:blur-[3px]"
+          />
+          <div className="inset-0 bg-black/40 z-10 absolute"></div>
+          <div className="z-50 fixed top-15 left-8 flex gap-4 drop-shadow-2xl">
+            <Image
+              width={100}
+              height={100}
+              src={imagePath || "/liked.png"}
+              alt="no-img"
+              className="rounded-md shadow-2xl"
+            />
+            <div className=" mt-4">
+              <h3 className="text-3xl font-semibold hover:underline cursor-pointer">
+                {song.title}
+              </h3>
+              <h3 className="text-lg font-medium text-neutral-300 ">
+                <span className="text-neutral-400">Single &bull;</span>{" "}
+                {song.author}
+              </h3>
+            </div>
+          </div>
+          <button
+            onClick={handlePlay}
+            className="z-50 fixed top-35 right-8 hidden group-hover:block  cursor-pointer hover:bg-black/10 rounded-full p-2 text-neutral-400 hover:text-white transition-all duration-300 "
+          >
+            {!playing ? <IoPlay size={35} /> : <IoPause size={35} />}
+          </button>
+
+          <div className="z-50 absolute bottom-0  text-white   drop-shadow-2xl flex  gap-1 w-full mx-auto ">
+            {Array.from({ length: 15 }).map((_, idx) => {
+              return <AudioVisualizer key={idx} isPlaying={playing} />;
+            })}
+          </div>
+        </motion.div>
+      )}
+
       <div className="hidden w-full h-full md:flex p-4 backdrop-blur-sm border-t-1 border-t-white/20  bg-gray-900/10 items-center max-h-full ">
         {/* Author and title */}
         <div className=" w-1/3 flex gap-x-2  items-center">
@@ -155,7 +222,7 @@ const PlayerContentDesktop = ({
 
         <div className=" flex space-x-6  transition-all duration-300 justify-center items-center mr-4 ">
           <button
-            className=" active:scale-110  cursor-pointer  text-neutral-400 hover:text-white"
+            className=" active:scale-110  cursor-pointer  text-neutral-300 hover:text-white"
             onClick={onPlayPrev}
             title="previous"
           >
@@ -163,12 +230,12 @@ const PlayerContentDesktop = ({
           </button>
           <button
             onClick={handlePlay}
-            className="p-3 active:bg-white/10 hover:bg-white/10 rounded-full cursor-pointer  text-neutral-400 hover:text-white transition-all duration-300 "
+            className="p-3 active:bg-white/10 hover:bg-white/10 rounded-full cursor-pointer  text-neutral-300 hover:text-white transition-all duration-300 "
           >
             {!playing ? <IoPlay size={35} /> : <IoPause size={35} />}
           </button>
           <button
-            className="active:scale-110 mr-4 cursor-pointer  text-neutral-400 hover:text-white"
+            className="active:scale-110 mr-4 cursor-pointer  text-neutral-300 hover:text-white"
             onClick={onPlayNext}
           >
             <IoPlaySkipForward size={28} />
@@ -180,7 +247,14 @@ const PlayerContentDesktop = ({
         {/* {progress bar} */}
 
         {/* Sound Player */}
-        <div className="flex flex-1  text-neutral-400 items-center justify-end space-x-4 mx-auto ">
+        <div className="flex flex-1  text-neutral-300 items-center justify-end space-x-4 mx-auto ">
+          {!showVisuals && (
+            <RxCaretUp
+              className=" cursor-pointer hover:bg-neutral-100/15  rounded-full active:scale-90"
+              onClick={() => setVisuals(true)}
+              size={36}
+            />
+          )}
           {repeat ? (
             <IoRepeat
               size={30}
@@ -191,14 +265,17 @@ const PlayerContentDesktop = ({
             <IoRepeat
               onClick={handleRepeat}
               size={30}
-              className="text-neutral-400 cursor-pointer"
+              className="text-neutral-300 cursor-pointer"
             />
           )}
-          <LikedButton songId={song?.id} className="scale-95 mt-0.5" />
+          <LikedButton
+            songId={song?.id}
+            className="scale-95 mt-0.5 text-neutral-300"
+          />
           <VolumeIcon
             size={24}
             onClick={toggleMute}
-            className="cursor-pointer text-neutral-400"
+            className="cursor-pointer text-neutral-300"
           />
           <Slider value={volume} onChange={handleVolume} />
         </div>

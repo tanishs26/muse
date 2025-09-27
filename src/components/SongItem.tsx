@@ -22,7 +22,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const imagePath = useLoadImage(data);
   return (
     <div
-      className="bg-neutral-400/10
+      className="
         relative
         group
         flex

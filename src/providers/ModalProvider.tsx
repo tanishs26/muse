@@ -14,10 +14,10 @@ const ModalProvider = () => {
     return null;
   }
   return (
-    <div>
+    <>
       <AuthModal/>
       <UploadModal/>
-    </div>
+    </>
   );
 };
 

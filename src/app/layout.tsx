@@ -10,7 +10,6 @@ import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterPorvider";
 import getSongsbyUser from "@/actions/getSongsbyUser";
 import Player from "@/components/Player";
-import SessionProviderContent from "@/components/SessionProviderContent";
 const font = Figtree({
   weight: ["400", "700"],
   subsets: ["latin"],
@@ -31,14 +30,13 @@ export default async function RootLayout({
 }>) {
   const userSongs = await getSongsbyUser();
   return (
-    <html lang="en" className="h-full " >
+    <html lang="en" className="h-full no-scrollbar " >
       <body className={`${font.className} antialiased h-full` } suppressHydrationWarning>
         <ToasterProvider />
-        <SessionProviderContent>
           <SupabaseProvider>
             <UserProvider>
               <ModalProvider />
-              <div className="flex flex-col h-full ">
+              <div className="flex flex-col h-full  no-scrollbar ">
                 <Header />
                 <div className="flex flex-1 overflow-hidden ">
                   <Sidebar songs={userSongs}>{children}</Sidebar>
@@ -49,7 +47,6 @@ export default async function RootLayout({
               </div>
             </UserProvider>
           </SupabaseProvider>
-        </SessionProviderContent>
       </body>
     </html>
   );

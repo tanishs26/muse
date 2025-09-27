@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   className,
 }) => {
   return (
-    <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
+    <Dialog.Root open={isOpen}  onOpenChange={onChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-neutral-900/90 backdrop-blur-sm fixed inset-0" />
         <Dialog.Content
