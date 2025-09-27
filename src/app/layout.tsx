@@ -18,6 +18,8 @@ const font = Figtree({
 export const metadata: Metadata = {
   title: "Muse",
   description: "Music player app",
+  icons:"/muse.ico"
+
 };
 
 //Fetch User Songs
