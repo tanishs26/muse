@@ -154,6 +154,16 @@ body,
     scrollbar-width: none; /* For Firefox */
   }
 }
+/* globals.css */
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+.scroll-text {
+  white-space: nowrap;
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+}
 
 
 .visualizer-wrapper {
