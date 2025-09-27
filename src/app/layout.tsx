@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: "Music player app",
 };
 
-//Fetch User SOngs
+//Fetch User Songs
 export const revalidate = 0;
 
 export default async function RootLayout({
@@ -42,9 +42,7 @@ export default async function RootLayout({
                 <Header />
                 <div className="flex flex-1 overflow-hidden ">
                   <Sidebar songs={userSongs}>{children}</Sidebar>
-                  <main className="flex-1  overflow-y-auto  ">
-                    {children}
-                  </main>
+                  <main className="flex-1  overflow-y-auto  ">{children}</main>
                 </div>
                 <Player />
                 <Footbar />
