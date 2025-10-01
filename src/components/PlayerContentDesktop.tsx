@@ -138,9 +138,32 @@ const PlayerContentDesktop = ({
       handleVolume(0);
     }
   };
+  // Inside PlayerContentDesktop component
+  useEffect(() => {
+    const isEditable = (el: EventTarget | null) => {
+      if (!(el instanceof HTMLElement)) return false;
+      if (el.isContentEditable) return true;
+      const tag = el.tagName;
+      return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "Space" && !isEditable(e.target)) {
+        e.preventDefault();
+        handlePlay();
+      } else if (e.code === "ArrowRight" && !isEditable(e.target)) {
+        onPlayNext();
+      } else if (e.code === "ArrowLeft" && !isEditable(e.target)) {
+        onPlayPrev();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [handlePlay, onPlayNext, onPlayPrev]);
 
   return (
-    <div className="w-full h-full bg-black/20 relative ">
+    <div className="w-full h-full bg-black/60 relative ">
       {showVisuals && (
         <motion.div
           initial={{
@@ -170,7 +193,7 @@ const PlayerContentDesktop = ({
             alt="no-img"
             className=" group-hover:blur-[3px]"
           />
-          <div className="inset-0 bg-black/40 z-10 absolute"></div>
+          <div className="inset-0 bg-black/60 z-10 absolute"></div>
           <div className="z-50 fixed top-15 left-8 flex gap-4 drop-shadow-2xl">
             <Image
               width={100}
@@ -191,7 +214,7 @@ const PlayerContentDesktop = ({
           </div>
           <button
             onClick={handlePlay}
-            className="z-50 fixed top-35 right-8 hidden group-hover:block  cursor-pointer hover:bg-black/10 rounded-full p-2 text-neutral-400 hover:text-white transition-all duration-300 "
+            className="z-50 fixed top-45 right-8 hidden group-hover:block  cursor-pointer hover:bg-black/10 rounded-full p-2 text-neutral-400 hover:text-white transition-all duration-300 "
           >
             {!playing ? <IoPlay size={35} /> : <IoPause size={35} />}
           </button>

@@ -89,7 +89,6 @@ const PlayerContentMobile = ({
         }
       })();
     },
-
     onpause: () => setPlaying(false),
     format: ["mp3"],
   });
@@ -166,7 +165,6 @@ const PlayerContentMobile = ({
               alt="hidden-color-src"
               crossOrigin="anonymous"
               className="hidden"
-       
             />
             <Image src={imagePath || "/liked.png"} fill alt="No img" />
           </motion.div>

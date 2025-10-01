@@ -37,10 +37,10 @@ const Header = () => {
   const img = user?.user_metadata.avatar_url;
 
   return (
-    <div className="w-full bg-white/5  flex justify-between h-18 items-center ">
+    <div className="w-full  bg-neutral-950/50 flex justify-between h-18 items-center ">
       <div className=" flex justify-center">
         <div className="ml-4 flex justify-center items-center font-muse ">
-          <PiMusicNoteFill  size={35} className="text-orange-500"/>
+          <PiMusicNoteFill size={35} className="text-orange-500" />
           <p className="ml-1 sm:block font-semibold text-3xl">MUSE</p>
         </div>
       </div>

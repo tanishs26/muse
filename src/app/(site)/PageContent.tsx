@@ -27,7 +27,7 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
     xl:grid-cols-5
     2xl:grid-cols-6
     gap-4
-    my-10 pb-10"
+    my-10 pb-15"
       >
         {songs.map((item: Song, idx) => (
           <motion.div
